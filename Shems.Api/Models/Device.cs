@@ -13,4 +13,7 @@ public class Device
     public int ZoneId { get; set; }
     public Zone? Zone { get; set; }
 
+    // Many-to-Many
+    public ICollection<AlertProfile> AlertProfiles { get; set; } = new List<AlertProfile>();
+
 }
