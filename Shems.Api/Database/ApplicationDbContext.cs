@@ -11,4 +11,5 @@ public class ApplicationDbContext : DbContext
 
     public DbSet<Zone> Zones { get; set; }
     public DbSet<Device> Devices { get; set; }
+    public DbSet<AlertProfile> AlertProfiles { get; set; }
 }
