@@ -9,7 +9,7 @@ public class ApplicationDbContext : DbContext
     {
     }
 
-    public DbSet<Zone> Zones { get; set; }
-    public DbSet<Device> Devices { get; set; }
-    public DbSet<AlertProfile> AlertProfiles { get; set; }
+    public required DbSet<Zone> Zones { get; set; }
+    public required DbSet<Device> Devices { get; set; }
+    public required DbSet<AlertProfile> AlertProfiles { get; set; }
 }
