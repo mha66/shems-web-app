@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Shems.Api.DTOs;
 using Shems.Api.Interfaces;
+using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims; // Required for reading the JWT token data
 
 namespace Shems.Api.Controllers;
@@ -18,12 +19,12 @@ public class ResidentController : ControllerBase
         _residentService = residentService;
     }
 
-    // GET: api/resident/5/dashboard
+    // GET: api/resident/18c0b788-a238-43c4-9077-d20e30567216/dashboard
     [HttpGet("{id}/dashboard")]
     public async Task<IActionResult> GetDashboard(string id)
     {
         // Security Check: Grab the User ID hiding inside the JWT token
-        var tokenUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+        // var tokenUserId = User.FindFirstValue(JwtRegisteredClaimNames.Sub);
 
         // If the user is trying to access ID 5, but their token says they are ID 2, block them
         // (Unless they are an Admin, who can view anyone's dashboard)
@@ -41,7 +42,7 @@ public class ResidentController : ControllerBase
         return Ok(dashboard);
     }
 
-    // PUT: api/resident/5/profile
+    // PUT: api/resident/18c0b788-a238-43c4-9077-d20e30567216/profile
     [HttpPut("{id}/profile")]
     public async Task<IActionResult> UpdateProfile(string id, [FromBody] UpdateProfileDto updateDto)
     {

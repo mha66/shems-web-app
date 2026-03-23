@@ -8,6 +8,6 @@ public class UpdateProfileDto
     public double? TargetMonthlyBudget { get; set; }
 
     [Required]
-    [Range(15, 30, ErrorMessage = "Preferred temperature must be between 15°C and 30°C.")]
+    [Range(5, 45, ErrorMessage = "Preferred temperature must be between 5°C and 45°C.")]
     public double? PreferredTemperature { get; set; }
 }
