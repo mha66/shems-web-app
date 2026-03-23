@@ -2,6 +2,8 @@ namespace Shems.Api.DTOs;
 public class ResidentDashboardDto
 {
     public string Username { get; set; } = string.Empty;
+    public string FirstName { get; set; } = string.Empty;
+    public string LastName { get; set; } = string.Empty;
     public double TargetMonthlyBudget { get; set; }
     public double PreferredTemperature { get; set; }
     public double CurrentHomePowerDraw { get; set; }

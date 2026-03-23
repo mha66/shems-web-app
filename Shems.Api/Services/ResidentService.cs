@@ -42,6 +42,8 @@ namespace Shems.Api.Services
             return new ResidentDashboardDto
             {
                 Username = resident.UserName ?? "Unknown User",
+                FirstName = resident.FirstName ?? "First",
+                LastName = resident.LastName ?? "Last",
                 TargetMonthlyBudget = resident.Profile?.TargetMonthlyBudget ?? 0,
                 PreferredTemperature = resident.Profile?.PreferredTemperature ?? 22.0, // Default 22°C
                 CurrentHomePowerDraw = homeStats?.TotalPower ?? 0,
