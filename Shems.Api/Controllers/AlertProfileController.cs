@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Shems.Api.DTOs;
 using Shems.Api.Interfaces;
@@ -6,7 +7,7 @@ namespace Shems.Api.Controllers;
 
 [ApiController]
 [Route("api/alert")]
-//[Authorize] // Secures the entire controller by default
+[Authorize] // Secures the entire controller by default
 public class AlertProfileController : ControllerBase
 {
     IAlertProfileService alertProfileService;
@@ -37,7 +38,7 @@ public class AlertProfileController : ControllerBase
 
     // POST: api/alert
     [HttpPost]
-    //[Authorize(Roles = "Admin")] // Only Admins create new types of system alerts
+    [Authorize(Roles = "Admin")] // Only Admins create new types of system alerts
     public async Task<IActionResult> CreateAlertProfile([FromBody] CreateAlertProfileDto createDto)
     {
         var newProfile = await alertProfileService.CreateAlertProfileAsync(createDto);
@@ -46,7 +47,7 @@ public class AlertProfileController : ControllerBase
 
     // PUT: api/alert/5/threshold
     [HttpPut("{id}/threshold")]
-    //[Authorize(Roles = "Admin")] // Only Admins should change system-wide thresholds
+    [Authorize(Roles = "Admin")] // Only Admins should change system-wide thresholds
     public async Task<IActionResult> UpdateAlertThreshold(int id, [FromBody] UpdateAlertProfileDto updateDto)
     {
         var success = await alertProfileService.UpdateAlertThresholdAsync(id, updateDto);
@@ -59,7 +60,7 @@ public class AlertProfileController : ControllerBase
 
     // DELETE: api/alert/5
     [HttpDelete("{id}")]
-    //[Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin")] // Only Admins should be able to delete alert profiles
     public async Task<IActionResult> DeleteAlertProfile(int id)
     {
         var success = await alertProfileService.DeleteAlertProfileAsync(id);

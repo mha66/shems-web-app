@@ -9,8 +9,6 @@ using Shems.Api.Interfaces;
 using Shems.Api.Models;
 using Shems.Api.Services;
 
-// Tells ASP.NET Core to stop renaming JWT claims
-JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -49,9 +47,6 @@ builder.Services.AddAuthentication(options =>
 
         IssuerSigningKey = new SymmetricSecurityKey(
             Encoding.UTF8.GetBytes(jwtKey!)),
-
-        NameClaimType = "name", 
-        RoleClaimType = "role"
     };
     options.Events = new JwtBearerEvents
     {

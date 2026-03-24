@@ -7,7 +7,7 @@ namespace Shems.Api.Controllers;
 
 [ApiController]
 [Route("api/device")]
-//[Authorize] // Requires a valid JWT token to access any method in this controller
+[Authorize]
 public class DeviceController : ControllerBase
 {
     IDeviceService deviceService;
@@ -39,7 +39,7 @@ public class DeviceController : ControllerBase
 
     // POST: api/device
     [HttpPost]
-    //[Authorize(Roles = "Admin")] // Only Admins should be adding new hardware to the house
+    [Authorize(Roles = "Admin")] // Only Admins should be adding new hardware to the house
     public async Task<IActionResult> CreateDevice([FromBody] CreateDeviceDto createDto)
     {
         // The [ApiController] attribute ensures DTO validation happens automatically here
@@ -64,7 +64,7 @@ public class DeviceController : ControllerBase
 
     // DELETE: api/device/5
     [HttpDelete("{id}")]
-    //[Authorize(Roles = "Admin")] // Only Admins should be removing hardware
+    [Authorize(Roles = "Admin")] // Only Admins should be removing hardware
     public async Task<IActionResult> DeleteDevice(int id)
     {
         var success = await deviceService.DeleteDeviceAsync(id);
@@ -76,7 +76,7 @@ public class DeviceController : ControllerBase
 
     // POST: api/device/5/alerts/2
     [HttpPost("{deviceId}/alerts/{alertProfileId}")]
-    //[Authorize(Roles = "Admin")] 
+    [Authorize(Roles = "Admin")] 
     public async Task<IActionResult> AssignAlertProfile(int deviceId, int alertProfileId)
     {
         var success = await deviceService.AssignAlertProfileAsync(deviceId, alertProfileId);

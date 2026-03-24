@@ -2,14 +2,13 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Shems.Api.DTOs;
 using Shems.Api.Interfaces;
-using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims; // Required for reading the JWT token data
+using System.Security.Claims;
 
 namespace Shems.Api.Controllers;
 
 [Route("api/resident")]
 [ApiController]
-//[Authorize] // Requires a valid JWT token
+[Authorize]
 public class ResidentController : ControllerBase
 {
     private readonly IResidentService _residentService;
@@ -24,14 +23,15 @@ public class ResidentController : ControllerBase
     public async Task<IActionResult> GetDashboard(string id)
     {
         // Security Check: Grab the User ID hiding inside the JWT token
-        // var tokenUserId = User.FindFirstValue(JwtRegisteredClaimNames.Sub);
-
-        // If the user is trying to access ID 5, but their token says they are ID 2, block them
+        // Sub claim is renamed to NameIdentifier when using AspNet Identity, so look for that instead of "sub"
+        var tokenUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+        System.Diagnostics.Debug.WriteLine($"Token User ID: {tokenUserId}, Requested Dashboard ID: {id}");
+        // If the user is trying to access ID x, but their token says they are ID y, block them
         // (Unless they are an Admin, who can view anyone's dashboard)
-        // if (tokenUserId != id && !User.IsInRole("Admin"))
-        // {
-        //     return Forbid(); // Returns a 403 Forbidden HTTP status
-        // }
+        if (tokenUserId != id && !User.IsInRole("Admin"))
+        {
+            return Forbid();
+        }
 
         var dashboard = await _residentService.GetResidentDashboardAsync(id);
         if (dashboard == null)
@@ -47,11 +47,11 @@ public class ResidentController : ControllerBase
     public async Task<IActionResult> UpdateProfile(string id, [FromBody] UpdateProfileDto updateDto)
     {
         // Same Security Check to prevent users from changing each other's budgets
-        // var tokenUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-        // if (tokenUserId != id && !User.IsInRole("Admin"))
-        // {
-        //     return Forbid(); 
-        // }
+        var tokenUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+        if (tokenUserId != id && !User.IsInRole("Admin"))
+        {
+            return Forbid(); 
+        }
 
         var success = await _residentService.UpdateProfileSettingsAsync(id, updateDto);
 

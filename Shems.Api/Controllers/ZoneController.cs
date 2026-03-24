@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Shems.Api.DTOs;
 using Shems.Api.Interfaces;
@@ -6,6 +7,7 @@ namespace Shems.Api.Controllers;
 
 [ApiController]
 [Route("api/zone")]
+[Authorize]
 public class ZoneController : ControllerBase
 {
     IZoneService zoneService;
@@ -35,7 +37,7 @@ public class ZoneController : ControllerBase
 
     // POST: api/zone
     [HttpPost]
-    //[Authorize(Roles = "Admin")] // Restrict creation to Admins
+    [Authorize(Roles = "Admin")] // Restrict creation to Admins
     public async Task<IActionResult> CreateZone([FromBody] CreateZoneDto createZoneDto)
     {
         // The [ApiController] attribute ensures DTO validation happens automatically here
@@ -49,7 +51,7 @@ public class ZoneController : ControllerBase
 
     // DELETE: api/zone/5
     [HttpDelete("{id}")]
-    //[Authorize(Roles = "Admin")] // Restrict deletion to Admins
+    [Authorize(Roles = "Admin")] // Restrict deletion to Admins
     public async Task<IActionResult> DeleteZone(int id)
     {
         var success = await zoneService.DeleteZoneAsync(id);
