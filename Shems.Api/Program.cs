@@ -1,5 +1,5 @@
 using System.Text;
-using System.IdentityModel.Tokens.Jwt;
+using Microsoft.OpenApi;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -60,7 +60,35 @@ builder.Services.AddAuthentication(options =>
 
 builder.Services.AddAuthorization();
 
+
+builder.Services.AddSwaggerGen(options =>
+{
+    options.SwaggerDoc("v1", new OpenApiInfo { Title = "Shems API", Version = "v1" });
+
+    // Tell Swagger JWT Bearer tokens are used
+    options.AddSecurityDefinition("bearer", new OpenApiSecurityScheme
+    {
+        Type = SecuritySchemeType.Http,
+        Scheme = "bearer",
+        BearerFormat = "JWT",
+        Description = "Enter your JWT token here."
+    });
+
+    // Tell Swagger to apply this security to every endpoint
+    options.AddSecurityRequirement(document => new OpenApiSecurityRequirement
+    {
+        [new OpenApiSecuritySchemeReference("bearer", document)] = []
+    });
+});
+
 var app = builder.Build();
+
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();   // Generate the swagger.json file
+    app.UseSwaggerUI(); // Draw the UI
+}
+
 app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
