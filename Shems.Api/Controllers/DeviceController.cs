@@ -12,7 +12,6 @@ public class DeviceController : ControllerBase
 {
     IDeviceService deviceService;
 
-    // Constructor Injection
     public DeviceController(IDeviceService deviceService)
     {
         this.deviceService = deviceService;

@@ -7,7 +7,6 @@ public class ResidentProfile
     public double TargetMonthlyBudget { get; set; }
     public double PreferredTemperature { get; set; }
     
-    // Foreign Key and Navigation property back to Resident
     [ForeignKey("Resident")]
     public string ResidentId { get; set; } = string.Empty;
     public Resident? Resident { get; set; }

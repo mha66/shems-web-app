@@ -58,7 +58,7 @@ namespace Shems.Api.Services
 
             if (profile == null)
             {
-                // The user exists, but they haven't set up a profile yet. Create it.
+                // The user exists, but they haven't set up a profile yet --> create it.
                 profile = new ResidentProfile
                 {
                     ResidentId = residentId,
@@ -69,7 +69,7 @@ namespace Shems.Api.Services
             }
             else
             {
-                // The profile exists, just update it
+                // The profile exists --> update it
                 profile.TargetMonthlyBudget = updateDto.TargetMonthlyBudget!.Value;
                 profile.PreferredTemperature = updateDto.PreferredTemperature!.Value;
             }
