@@ -7,6 +7,8 @@ public class Resident : IdentityUser
     public string FirstName { get; set; } = string.Empty;
     public string LastName { get; set; } = string.Empty;
     public string Role { get; set; } = "User"; // For Authorization
+    public string? RefreshToken { get; set; }
+    public DateTime? RefreshTokenExpiryTime { get; set; }
     // One-to-One relationship with ResidentProfile
     public ResidentProfile? Profile { get; set; }
 }

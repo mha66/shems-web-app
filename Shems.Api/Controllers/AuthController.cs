@@ -48,7 +48,13 @@ public class AuthController : ControllerBase
         if (result.Succeeded)
         {
             var (token, expiration) = GenerateJwtToken(user);
+            var refreshToken = GenerateRefreshToken();
+            user.RefreshToken = refreshToken;
+            user.RefreshTokenExpiryTime = DateTime.UtcNow.AddDays(7);
+            await _userManager.UpdateAsync(user);
+
             SetTokenCookie(token);
+            SetRefreshTokenCookie(refreshToken);
             AuthResponseDto authResponse = new AuthResponseDto
             {
                 Token = token,
@@ -71,16 +77,77 @@ public class AuthController : ControllerBase
         if (user != null && await _userManager.CheckPasswordAsync(user, loginDto.Password))
         {
             var (token, expiration) = GenerateJwtToken(user);
+            var refreshToken = GenerateRefreshToken();
+            user.RefreshToken = refreshToken;
+            user.RefreshTokenExpiryTime = DateTime.UtcNow.AddDays(7);
+            await _userManager.UpdateAsync(user);
+
             SetTokenCookie(token);
+            SetRefreshTokenCookie(refreshToken);
             AuthResponseDto authResponse = new AuthResponseDto
             {
                 Token = token,
                 Expiration = expiration
             };
-            return Ok(authResponse);    
+            return Ok(authResponse);
         }
-        
+
         return Unauthorized("Invalid username or password!");
+    }
+
+    [HttpPost("refresh")]
+    public async Task<IActionResult> Refresh()
+    {
+        // Grab the refresh token from the cookie
+        var refreshToken = Request.Cookies["refreshToken"];
+        if (string.IsNullOrEmpty(refreshToken))
+            return Unauthorized(new { Message = "No refresh token found in cookies." });
+
+        // Find the user attached to this specific token
+        var user = _userManager.Users.SingleOrDefault(u => u.RefreshToken == refreshToken);
+
+        // Validate existence and expiration
+        if (user == null || user.RefreshTokenExpiryTime <= DateTime.UtcNow)
+            return Unauthorized(new { Message = "Invalid or expired refresh token. Please log in again." });
+
+        // Token Rotation: Generate brand new tokens to prevent reuse
+        var (newJwtToken, _) = GenerateJwtToken(user);
+        var newRefreshToken = GenerateRefreshToken();
+
+        // Update the database
+        user.RefreshToken = newRefreshToken;
+        user.RefreshTokenExpiryTime = DateTime.UtcNow.AddDays(7);
+        await _userManager.UpdateAsync(user);
+
+        // Set the new cookies
+        SetTokenCookie(newJwtToken);
+        SetRefreshTokenCookie(newRefreshToken);
+
+        return Ok(new { Message = "Session successfully refreshed." });
+    }
+
+    [HttpPost("logout")]
+    public async Task<IActionResult> Logout()
+    {
+        // Grab the token to identify the user
+        var refreshToken = Request.Cookies["refreshToken"];
+        if (!string.IsNullOrEmpty(refreshToken))
+        {
+            var user = _userManager.Users.SingleOrDefault(u => u.RefreshToken == refreshToken);
+            if (user != null)
+            {
+                // Nullify the token in the database
+                user.RefreshToken = null;
+                user.RefreshTokenExpiryTime = null;
+                await _userManager.UpdateAsync(user);
+            }
+        }
+
+        // Delete the cookies from the user's browser
+        Response.Cookies.Delete("jwt");
+        Response.Cookies.Delete("refreshToken");
+
+        return Ok(new { Message = "Logged out successfully." });
     }
 
     private (string Token, string Expiration) GenerateJwtToken(Resident user)
@@ -101,7 +168,7 @@ public class AuthController : ControllerBase
             issuer: _configuration["Jwt:Issuer"],
             audience: _configuration["Jwt:Audience"],
             claims: claims,
-            expires: DateTime.UtcNow.AddHours(3),
+            expires: DateTime.UtcNow.AddMinutes(15), // Short-lived JWT for better security
             signingCredentials: creds
         );
 
@@ -118,7 +185,27 @@ public class AuthController : ControllerBase
             HttpOnly = true,
             Secure = true,
             SameSite = SameSiteMode.Strict,
-            Expires = DateTimeOffset.UtcNow.AddHours(3)
+            Expires = DateTimeOffset.UtcNow.AddMinutes(15)
+        });
+    }
+
+    private string GenerateRefreshToken()
+    {
+        // Generates a cryptographically secure random 64-byte string
+        var randomNumber = new byte[64];
+        using var rng = System.Security.Cryptography.RandomNumberGenerator.Create();
+        rng.GetBytes(randomNumber);
+        return Convert.ToBase64String(randomNumber);
+    }
+
+    private void SetRefreshTokenCookie(string refreshToken)
+    {
+        Response.Cookies.Append("refreshToken", refreshToken, new CookieOptions
+        {
+            HttpOnly = true,
+            Secure = true,
+            SameSite = SameSiteMode.Strict,
+            Expires = DateTimeOffset.UtcNow.AddDays(7) // Lives much longer than the JWT
         });
     }
 
