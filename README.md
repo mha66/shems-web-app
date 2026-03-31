@@ -101,7 +101,6 @@ The API features an automated worker service (`IDeviceMonitoringService`) schedu
 
 ## 📸 Demonstration
 
-
 ### 1. Secure Dual-Cookie Authentication (Postman)
 Demonstrates a successful 200 OK response from the `/login` endpoint, showing both the short-lived JWT and long-lived Refresh Token cookies being securely set. 
 <img width="1899" height="619" alt="Login Success" src="https://github.com/user-attachments/assets/97c29ede-15a7-4e46-81cc-540917013400" />
@@ -114,9 +113,11 @@ Demonstrates the `/refresh` endpoint successfully rotating the credentials after
 Demonstrates a standard user attempting to access an `[Authorize(Roles="Admin")]` endpoint and being correctly rejected.
 <img width="1895" height="543" alt="RBAC Forbidden" src="https://github.com/user-attachments/assets/7defbcab-a349-48e7-9847-d8b6016ff222" />
 
-### 4. JWT Swagger
-Demonstrates the working .NET 10 Swagger configuration accepting the Bearer token (authorized).
-<img width="1999" height="1375" alt="Swagger" src="https://github.com/user-attachments/assets/9b51cf88-05d6-4e83-b13c-cb6d0684ba95" />
+### 4. Swagger
+Demonstrates the working .NET 10 Swagger configuration.
+<img width="2241" height="1380" alt="Swagger" src="https://github.com/user-attachments/assets/3856bbbc-e92b-4b36-8603-58aaa3f7a828" />
+<img width="2180" height="1228" alt="Swagger" src="https://github.com/user-attachments/assets/bd1de68f-546d-4b63-9681-89279279e83d" />
+
 
 ### 5. Background Job Execution (Hangfire)
 Demonstrates the Hangfire dashboard successfully executing the power-monitoring background job.
