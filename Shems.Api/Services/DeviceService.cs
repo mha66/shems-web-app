@@ -63,13 +63,17 @@ public class DeviceService : IDeviceService
         _context.Devices.Add(device);
         await _context.SaveChangesAsync();
 
+        string zoneName = await _context.Zones.AsNoTracking().Where(z => z.Id == createDto.ZoneId)
+                .Select(z => z.Name).FirstOrDefaultAsync() ?? "Unassigned";
+
+                
         return new DeviceSummaryDto
         {
             Id = device.Id,
             Name = device.Name,
             IsOn = device.IsOn,
             CurrentPowerDraw = device.CurrentPowerDraw,
-            ZoneName = (device.Zone != null) ? device.Zone.Name : "Unassigned",
+            ZoneName = zoneName,
             ActiveAlerts = new List<string>() // No alerts on creation
         };
     }
