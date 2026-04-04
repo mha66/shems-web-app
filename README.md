@@ -84,13 +84,13 @@ Below are the core endpoints available in the system. Full schemas and parameter
 * `POST /logout` - Revokes the refresh token in the database and commands the browser to delete the authentication cookies.
 
 ### Residents (`/api/resident`)
-* `GET /{id}` - Retrieves a specific resident's profile. *(Requires Auth)*
-* `PUT /{id}` - Updates a resident's profile. Validates `NameIdentifier` to ensure users can only edit their own profiles unless they are an `Admin`. *(Requires Auth)*
+* `GET /{id}/dashboard` - Retrieves a specific resident's profile. *(Requires Auth)*
+* `PUT /{id}/profile` - Updates a resident's profile. Validates `NameIdentifier` to ensure users can only edit their own profiles unless they are an `Admin`. *(Requires Auth)*
 
 ### Devices (`/api/device`)
 * `GET /` - Retrieves all registered smart home devices. *(Requires Auth)*
 * `POST /` - Registers a new smart home device. *(Requires Admin)*
-* `PUT /{id}` - Updates device status or current power draw. *(Requires Admin)*
+* `PUT /{id}/status` - Updates device status or current power draw. *(Requires Admin)*
 
 ---
 
