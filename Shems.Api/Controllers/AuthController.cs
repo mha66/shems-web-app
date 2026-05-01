@@ -31,6 +31,7 @@ public class AuthController : ControllerBase
         if (userExists != null)
             return Conflict("Username already exists!");
 
+        string role = "User"; // Default role for new registrations. Adjust as needed.
         // Create the new Resident
         var user = new Resident
         {
@@ -39,7 +40,7 @@ public class AuthController : ControllerBase
             UserName = registerDto.Username,
             FirstName = registerDto.FirstName,
             LastName = registerDto.LastName,
-            Role = "User" // Default role.
+            Role = role // Default role.
         };
 
         // UserManager automatically hashes the password and saves it to the database
@@ -58,7 +59,8 @@ public class AuthController : ControllerBase
             AuthResponseDto authResponse = new AuthResponseDto
             {
                 Token = token,
-                Expiration = expiration
+                Expiration = expiration,
+                Role = user.Role
             };
             return Ok(authResponse);
         }
@@ -87,7 +89,8 @@ public class AuthController : ControllerBase
             AuthResponseDto authResponse = new AuthResponseDto
             {
                 Token = token,
-                Expiration = expiration
+                Expiration = expiration,
+                Role = user.Role
             };
             return Ok(authResponse);
         }
