@@ -93,6 +93,17 @@ builder.Services.AddHangfire(config => config
 
 builder.Services.AddHangfireServer();
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowReactFrontend", policy =>
+    {
+        policy.WithOrigins("http://localhost:5173")
+              .AllowAnyHeader()
+              .AllowAnyMethod()
+              .AllowCredentials(); // CRITICAL for cookies to work
+    });
+});
+
 
 var app = builder.Build();
 
@@ -103,6 +114,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseRouting();
+app.UseCors("AllowReactFrontend");
 app.UseAuthentication();
 app.UseAuthorization();
 app.UseHangfireDashboard("/hangfire"); // Map the Hangfire visual dashboard
