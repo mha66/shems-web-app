@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
+import { Container, Form, Button, Card, Alert } from 'react-bootstrap';
 import api from '../services/api';
 
 const Login = ({ setIsAuthenticated }) => {
@@ -29,39 +30,48 @@ const Login = ({ setIsAuthenticated }) => {
   };
 
   return (
-    <div style={{ maxWidth: '400px', margin: '50px auto', padding: '20px', border: '1px solid #ccc' }}>
-      <h2>Login</h2>
-      {error && <p style={{ color: 'red' }}>{error}</p>}
-      
-      <form onSubmit={handleLogin}>
-        <div style={{ marginBottom: '10px' }}>
-          <label>Username:</label>
-          <input 
-            type="text" 
-            value={username} 
-            onChange={(e) => setUsername(e.target.value)} 
-            required 
-            style={{ width: '100%', padding: '8px' }}
-          />
-        </div>
-        <div style={{ marginBottom: '10px' }}>
-          <label>Password:</label>
-          <input 
-            type="password" 
-            value={password} 
-            onChange={(e) => setPassword(e.target.value)} 
-            required 
-            style={{ width: '100%', padding: '8px' }}
-          />
-        </div>
-        <button type="submit" style={{ padding: '10px 20px', cursor: 'pointer' }}>
-          Log In
-        </button>
-        <div style={{ textAlign: 'center', marginTop: '15px' }}>
-          <p>Don't have an account? <Link to="/register">Register here</Link></p>
-        </div>
-      </form>
-    </div>
+    <Container className="d-flex align-items-center justify-content-center" style={{ minHeight: '80vh' }}>
+      <Card style={{ width: '100%', maxWidth: '400px' }} className="shadow-sm">
+        <Card.Body className="p-4">
+          <h2 className="text-center mb-4">Login</h2>
+          
+          {error && <Alert variant="danger">{error}</Alert>}
+          
+          <Form onSubmit={handleLogin}>
+            <Form.Group className="mb-3">
+              <Form.Label>Username</Form.Label>
+              <Form.Control 
+                type="text" 
+                value={username} 
+                onChange={(e) => setUsername(e.target.value)} 
+                required 
+                placeholder="Enter username"
+              />
+            </Form.Group>
+
+            <Form.Group className="mb-4">
+              <Form.Label>Password</Form.Label>
+              <Form.Control 
+                type="password" 
+                value={password} 
+                onChange={(e) => setPassword(e.target.value)} 
+                required 
+                placeholder="Enter password"
+              />
+            </Form.Group>
+
+            <Button variant="primary" type="submit" className="w-100 mb-3">
+              Log In
+            </Button>
+          </Form>
+
+          <div className="text-center">
+            <span className="text-muted">Don't have an account? </span>
+            <Link to="/register" className="text-decoration-none">Register here</Link>
+          </div>
+        </Card.Body>
+      </Card>
+    </Container>
   );
 };
 

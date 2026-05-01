@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
+import { Container, Form, Button, Card, Alert } from 'react-bootstrap';
 import api from '../services/api';
 
 const Register = ({ setIsAuthenticated }) => {
@@ -18,8 +19,7 @@ const Register = ({ setIsAuthenticated }) => {
     setSuccess('');
 
     try {
-      // Send registration data to your backend
-      // Adjust the property names if your RegisterDto.cs uses different ones (e.g., FirstName, LastName)
+      // Send registration data to backend
       await api.post('/auth/register', { 
         username: username, 
         firstName: firstName,
@@ -32,13 +32,6 @@ const Register = ({ setIsAuthenticated }) => {
       localStorage.setItem('isAuthenticated', 'true');
       navigate('/');
         
-    //   setSuccess('Registration successful! Redirecting to login...');
-      
-    //   // Give the user a moment to read the success message before kicking them to the login page
-    //   setTimeout(() => {
-    //     navigate('/login');
-    //   }, 2000);
-
     } catch (err) {
       console.error(err);
       // Check if the backend sent a specific error message (like "Username already taken")
@@ -51,79 +44,82 @@ const Register = ({ setIsAuthenticated }) => {
   };
 
   return (
-    <div style={{ maxWidth: '400px', margin: '50px auto', padding: '20px', border: '1px solid #ccc' }}>
-      <h2>Register</h2>
-      
-      {/* Display Messages */}
-      {error && <p style={{ color: 'red' }}>{error}</p>}
-      {success && <p style={{ color: 'green' }}>{success}</p>}
-      
-      <form onSubmit={handleRegister}>
-        <div style={{ marginBottom: '10px' }}>
-          <label>Username:</label>
-          <input 
-            type="text" 
-            value={username} 
-            onChange={(e) => setUsername(e.target.value)} 
-            required 
-            style={{ width: '100%', padding: '8px' }}
-          />
-        </div>
-        
-        <div style={{ marginBottom: '10px' }}>
-          <label>First Name:</label>
-          <input 
-            type="text" 
-            value={firstName} 
-            onChange={(e) => setFirstName(e.target.value)} 
-            required 
-            style={{ width: '100%', padding: '8px' }}
-          />
-        </div>
-        
-        <div style={{ marginBottom: '10px' }}>
-          <label>Last Name:</label>
-          <input 
-            type="text" 
-            value={lastName} 
-            onChange={(e) => setLastName(e.target.value)} 
-            required 
-            style={{ width: '100%', padding: '8px' }}
-          />
-        </div>
-        
+    <Container className="d-flex align-items-center justify-content-center" style={{ minHeight: '80vh' }}>
+      <Card style={{ width: '100%', maxWidth: '400px' }} className="shadow-sm">
+        <Card.Body className="p-4">
+          <h2 className="text-center mb-4">Register</h2>
+          
+          {error && <Alert variant="danger">{error}</Alert>}
+          {success && <Alert variant="success">{success}</Alert>}
+          
+          <Form onSubmit={handleRegister}>
+            <Form.Group className="mb-3">
+              <Form.Label>Username</Form.Label>
+              <Form.Control 
+                type="text" 
+                value={username} 
+                onChange={(e) => setUsername(e.target.value)} 
+                required 
+                placeholder="Choose a username"
+              />
 
-        <div style={{ marginBottom: '10px' }}>
-          <label>Email:</label>
-          <input 
-            type="email" 
-            value={email} 
-            onChange={(e) => setEmail(e.target.value)} 
-            required 
-            style={{ width: '100%', padding: '8px' }}
-          />
-        </div>
+            </Form.Group>
+              <Form.Group className="mb-3">
+              <Form.Label>First Name</Form.Label>
+              <Form.Control 
+                type="text"
+                value={firstName}
+                onChange={(e) => setFirstName(e.target.value)}
+                required
+                placeholder="Enter your first name"
+              />
+            </Form.Group>
 
-        <div style={{ marginBottom: '10px' }}>
-          <label>Password:</label>
-          <input 
-            type="password" 
-            value={password} 
-            onChange={(e) => setPassword(e.target.value)} 
-            required 
-            style={{ width: '100%', padding: '8px' }}
-          />
-        </div>
+            <Form.Group className="mb-3">
+              <Form.Label>Last Name</Form.Label>
+              <Form.Control 
+                type="text"
+                value={lastName}
+                onChange={(e) => setLastName(e.target.value)}
+                required
+                placeholder="Enter your last name"
+              />
+            </Form.Group>
 
-        <button type="submit" style={{ padding: '10px 20px', cursor: 'pointer', width: '100%', marginBottom: '10px' }}>
-          Create Account
-        </button>
-      </form>
+            <Form.Group className="mb-3">
+              <Form.Label>Email</Form.Label>
+              <Form.Control 
+                type="email" 
+                value={email} 
+                onChange={(e) => setEmail(e.target.value)} 
+                required 
+                placeholder="Enter your email"
+              />
+            </Form.Group>
 
-      <div style={{ textAlign: 'center', marginTop: '15px' }}>
-        <p>Already have an account? <Link to="/login">Log in here</Link></p>
-      </div>
-    </div>
+            <Form.Group className="mb-4">
+              <Form.Label>Password</Form.Label>
+              <Form.Control 
+                type="password" 
+                value={password} 
+                onChange={(e) => setPassword(e.target.value)} 
+                required 
+                placeholder="Create a password"
+              />
+            </Form.Group>
+
+            <Button variant="primary" type="submit" className="w-100 mb-3">
+              Create Account
+            </Button>
+          </Form>
+
+          <div className="text-center">
+            <span className="text-muted">Already have an account? </span>
+            <Link to="/login" className="text-decoration-none">Log in here</Link>
+          </div>
+        </Card.Body>
+      </Card>
+    </Container>
   );
 };
 
