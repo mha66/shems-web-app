@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Routes, Route, Link, useNavigate } from 'react-router-dom';
 
-import api from './services/api';
+import authService from './services/authService';
 import ProtectedRoute from './components/ProtectedRoute';
 import AdminRoute from './components/AdminRoute';
 
@@ -21,10 +21,10 @@ function App() {
 
   const handleLogout = async () => {
     // Call your backend logout endpoint to clear the cookie
-    await api.post('/auth/logout'); 
+    await authService.logout();
     
     setIsAuthenticated(false);
-    localStorage.removeItem('isAuthenticated');
+    //localStorage.removeItem('isAuthenticated');
     navigate('/login');
   };
 
@@ -39,7 +39,7 @@ function App() {
       )}
 
       <Routes>
-        {/* Public Route */}
+        {/* Public Routes */}
         <Route 
           path="/login" 
           element={<Login setIsAuthenticated={setIsAuthenticated} />} 
@@ -50,7 +50,7 @@ function App() {
           element={<Register setIsAuthenticated={setIsAuthenticated} />} 
         />
 
-        {/* Protected Route Example (Dashboard) */}
+        {/* Protected Routes */}
         <Route 
           path="/" 
           element={

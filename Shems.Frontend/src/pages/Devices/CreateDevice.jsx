@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { Container, Form, Button, Card, Alert } from 'react-bootstrap';
-import api from '../../services/api';
+import deviceService from '../../services/deviceService';
+import zoneService from '../../services/zoneService'; 
 
 const CreateDevice = () => {
   const [name, setName] = useState('');
@@ -14,7 +15,7 @@ const CreateDevice = () => {
   useEffect(() => {
     const fetchZones = async () => {
       try {
-        const response = await api.get('/zone');
+        const response = await zoneService.getAllZones();
         setZones(response.data);
       } catch (err) {
         console.error('Failed to fetch zones for dropdown', err);
@@ -37,7 +38,7 @@ const CreateDevice = () => {
 
     try {
       // Send the data exactly as the CreateDeviceDto expects
-      await api.post('/device', {
+      await deviceService.createDevice({
         name: name,
         zoneId: parseInt(zoneId) // Ensure it is sent as a number, not a string
       });

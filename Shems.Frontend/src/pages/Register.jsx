@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { Container, Form, Button, Card, Alert } from 'react-bootstrap';
-import api from '../services/api';
+import authService from '../services/authService';
 
 const Register = ({ setIsAuthenticated }) => {
   const [username, setUsername] = useState('');
@@ -20,7 +20,7 @@ const Register = ({ setIsAuthenticated }) => {
 
     try {
       // Send registration data to backend
-      const response = await api.post('/auth/register', { 
+      const response = await authService.register({ 
         username: username, 
         firstName: firstName,
         lastName: lastName,

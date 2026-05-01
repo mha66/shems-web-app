@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Container, Table, Button, Alert, Spinner } from 'react-bootstrap';
-import api from '../../services/api';
+import deviceService from '../../services/deviceService';
 
 const DeviceList = () => {
   const userRole = localStorage.getItem('userRole');
@@ -16,8 +16,7 @@ const DeviceList = () => {
 
   const fetchDevices = async () => {
     try {
-      // Assuming your C# controller route is [Route("api/[controller]")]
-      const response = await api.get('/device'); 
+      const response = await deviceService.getAllDevices();
       setDevices(response.data);
       setLoading(false);
     } catch (err) {
@@ -30,7 +29,7 @@ const DeviceList = () => {
   const handleDelete = async (id) => {
     if (window.confirm('Are you sure you want to delete this device?')) {
       try {
-        await api.delete(`/device/${id}`);
+        await deviceService.deleteDevice(id);
         // Refresh the list after deleting
         fetchDevices(); 
       } catch (err) {

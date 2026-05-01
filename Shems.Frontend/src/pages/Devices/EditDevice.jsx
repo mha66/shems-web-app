@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate, useParams, Link } from 'react-router-dom';
 import { Container, Form, Button, Card, Alert, Spinner } from 'react-bootstrap';
-import api from '../../services/api';
+import deviceService from '../../services/deviceService';
 
 const EditDevice = () => {
   const { id } = useParams();
@@ -20,7 +20,7 @@ const EditDevice = () => {
   useEffect(() => {
     const fetchDevice = async () => {
       try {
-        const response = await api.get(`/device/${id}`);
+        const response = await deviceService.getDeviceById(id);
         
         // Populate the form with the existing data
         setDeviceName(response.data.name);
@@ -50,7 +50,7 @@ const EditDevice = () => {
 
     try {
       // Send the payload matching the UpdateDeviceStatusDto
-      await api.put(`/device/${id}/status`, {
+      await deviceService.updateDeviceStatus(id, {
         isOn: isOn,
         currentPowerDraw: parseFloat(currentPowerDraw) // Ensure it is sent as a decimal/double
       });

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { Container, Form, Button, Card, Alert } from 'react-bootstrap';
-import api from '../services/api';
+import authService from '../services/authService';
 
 const Login = ({ setIsAuthenticated }) => {
   const [username, setUsername] = useState('');
@@ -15,14 +15,14 @@ const Login = ({ setIsAuthenticated }) => {
 
     try {
       // Send the data to your backend AuthController
-      const response = await api.post('/auth/login', { username: username, password: password });
+      const response = await authService.login({ username: username, password: password });
       
       // If successful, the backend automatically attaches the secure cookie to your browser.
       // Now we just update our React state to unlock the protected routes.
       setIsAuthenticated(true);
       localStorage.setItem('isAuthenticated', 'true'); // Keeps you logged in if you refresh the page
       localStorage.setItem('userRole', response.data.role); // Store the user role for later use (like showing/hiding admin features)
-      console.log('role from login response:', response.data.role); // Debugging line to check the role value
+      //console.log('role from login response:', response.data.role); // Debugging line to check the role value
       navigate('/'); // Send the user to the Home/Dashboard
     } catch (err) {
       console.error(err);
