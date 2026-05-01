@@ -20,7 +20,7 @@ const Register = ({ setIsAuthenticated }) => {
 
     try {
       // Send registration data to backend
-      await api.post('/auth/register', { 
+      const response = await api.post('/auth/register', { 
         username: username, 
         firstName: firstName,
         lastName: lastName,
@@ -30,6 +30,7 @@ const Register = ({ setIsAuthenticated }) => {
      
       setIsAuthenticated(true);
       localStorage.setItem('isAuthenticated', 'true');
+      localStorage.setItem('userRole', response.data.role); // Store the user role for later use (like showing/hiding admin features)
       navigate('/');
         
     } catch (err) {

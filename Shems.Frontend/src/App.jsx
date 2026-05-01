@@ -1,10 +1,16 @@
 import { useState } from 'react';
 import { Routes, Route, Link, useNavigate } from 'react-router-dom';
+
+import api from './services/api';
+import ProtectedRoute from './components/ProtectedRoute';
+import AdminRoute from './components/AdminRoute';
+
 import Login from './pages/Login';
 import Register from './pages/Register';
 import Home from './pages/Home';
-import api from './services/api';
-import ProtectedRoute from './components/ProtectedRoute';
+import DeviceList from './pages/Devices/DeviceList';
+import CreateDevice from './pages/Devices/CreateDevice';
+import EditDevice from './pages/Devices/EditDevice';
 
 function App() {
   const navigate = useNavigate();
@@ -48,13 +54,38 @@ function App() {
         <Route 
           path="/" 
           element={
-            <ProtectedRoute isAuthenticated={isAuthenticated}>
-              <Home /> {/* Make sure you have a basic Home.jsx created! */}
+            <ProtectedRoute>
+              <Home />
             </ProtectedRoute>
           } 
         />
         
-        {/* You will add your Devices, Zones, etc. inside ProtectedRoutes here later */}
+        <Route 
+          path="/devices" 
+          element={
+            <ProtectedRoute>
+              <DeviceList />
+            </ProtectedRoute>
+          } 
+        />
+        <Route 
+          path="/devices/new" 
+          element={
+            <AdminRoute>
+              <CreateDevice />
+            </AdminRoute>
+          } 
+        />
+        <Route 
+          path="/devices/edit/:id" 
+          element={
+            <AdminRoute>
+              <EditDevice />
+            </AdminRoute>
+          } 
+        />
+
+        
       </Routes>
     </div>
   );
