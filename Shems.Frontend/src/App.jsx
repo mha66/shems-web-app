@@ -2,6 +2,8 @@ import { useState } from 'react';
 import { Routes, Route, Link, useNavigate } from 'react-router-dom';
 
 import authService from './services/authService';
+
+import Navigation from './components/Navigation';
 import ProtectedRoute from './components/ProtectedRoute';
 import AdminRoute from './components/AdminRoute';
 
@@ -20,29 +22,25 @@ import EditAlertProfile from './pages/AlertProfiles/EditAlertProfile';
 
 function App() {
   const navigate = useNavigate();
+
   // Initialize state based on localStorage so it survives page reloads
   const [isAuthenticated, setIsAuthenticated] = useState(
     localStorage.getItem('isAuthenticated') === 'true'
   );
 
-  const handleLogout = async () => {
-    // Call your backend logout endpoint to clear the cookie
-    await authService.logout();
+  // const handleLogout = async () => {
+  //   // Call your backend logout endpoint to clear the cookie
+  //   await authService.logout();
     
-    setIsAuthenticated(false);
-    //localStorage.removeItem('isAuthenticated');
-    navigate('/login');
-  };
+  //   setIsAuthenticated(false);
+  //   //localStorage.removeItem('isAuthenticated');
+  //   navigate('/login');
+  // };
 
   return (
     <div>
       {/* Only show navigation if the user is logged in */}
-      {isAuthenticated && (
-        <nav style={{ padding: '10px', background: '#eee', marginBottom: '20px' }}>
-          <Link to="/" style={{ marginRight: '10px' }}>Dashboard</Link>
-          <button onClick={handleLogout}>Logout</button>
-        </nav>
-      )}
+      <Navigation setIsAuthenticated={setIsAuthenticated} />
 
       <Routes>
         {/* Public Routes */}
