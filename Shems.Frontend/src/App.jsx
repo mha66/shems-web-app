@@ -11,6 +11,8 @@ import Home from './pages/Home';
 import DeviceList from './pages/Devices/DeviceList';
 import CreateDevice from './pages/Devices/CreateDevice';
 import EditDevice from './pages/Devices/EditDevice';
+import ZoneList from './pages/Zones/ZoneList';
+import CreateZone from './pages/Zones/CreateZone';
 
 function App() {
   const navigate = useNavigate();
@@ -85,7 +87,24 @@ function App() {
           } 
         />
 
-        
+        <Route 
+          path="/zones" 
+          element={
+            <ProtectedRoute>
+              <ZoneList />
+            </ProtectedRoute>
+          } 
+        />
+        <Route 
+          path="/zones/new" 
+          element={
+            <AdminRoute>
+              <CreateZone />
+            </AdminRoute>
+          } 
+        />
+
+
       </Routes>
     </div>
   );

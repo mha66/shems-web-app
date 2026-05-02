@@ -2,7 +2,9 @@ import api from './api';
 
 const zoneService = {
   getAllZones: () => api.get('/zone'),
-  // You will add getById, create, update, delete here later!
+  getZoneById: (id) => api.get(`/zone/${id}`),
+  createZone: (data) => api.post('/zone', data),
+  deleteZone: (id) => api.delete(`/zone/${id}`)
 };
 
 export default zoneService;
