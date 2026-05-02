@@ -8,6 +8,7 @@ import AdminRoute from './components/AdminRoute';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import Home from './pages/Home';
+import Profile from './pages/Profile';
 import DeviceList from './pages/Devices/DeviceList';
 import CreateDevice from './pages/Devices/CreateDevice';
 import EditDevice from './pages/Devices/EditDevice';
@@ -64,7 +65,16 @@ function App() {
             </ProtectedRoute>
           } 
         />
-        
+
+        <Route 
+          path="/profile" 
+          element={
+            <ProtectedRoute>
+              <Profile />
+            </ProtectedRoute>
+          } 
+        />
+
         <Route 
           path="/devices" 
           element={

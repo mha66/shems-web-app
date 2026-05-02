@@ -31,6 +31,7 @@ const Register = ({ setIsAuthenticated }) => {
       setIsAuthenticated(true);
       localStorage.setItem('isAuthenticated', 'true');
       localStorage.setItem('userRole', response.data.role); // Store the user role for later use (like showing/hiding admin features)
+      localStorage.setItem('userId', response.data.id); // Store the user ID for later use (like fetching user-specific data)
       navigate('/');
         
     } catch (err) {
