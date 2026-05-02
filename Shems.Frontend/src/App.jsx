@@ -13,6 +13,9 @@ import CreateDevice from './pages/Devices/CreateDevice';
 import EditDevice from './pages/Devices/EditDevice';
 import ZoneList from './pages/Zones/ZoneList';
 import CreateZone from './pages/Zones/CreateZone';
+import AlertProfileList from './pages/AlertProfiles/AlertProfileList';
+import CreateAlertProfile from './pages/AlertProfiles/CreateAlertProfile';
+import EditAlertProfile from './pages/AlertProfiles/EditAlertProfile';
 
 function App() {
   const navigate = useNavigate();
@@ -104,7 +107,30 @@ function App() {
           } 
         />
 
-
+        <Route 
+          path="/alerts" 
+          element={
+            <ProtectedRoute>
+              <AlertProfileList />
+            </ProtectedRoute>
+          } 
+        />
+        <Route 
+          path="/alerts/new" 
+          element={
+            <AdminRoute>
+              <CreateAlertProfile />
+            </AdminRoute>
+          } 
+        />
+        <Route 
+          path="/alerts/edit/:id" 
+          element={
+            <AdminRoute>
+              <EditAlertProfile />
+            </AdminRoute>
+          } 
+        />
       </Routes>
     </div>
   );
