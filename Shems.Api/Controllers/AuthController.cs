@@ -60,7 +60,8 @@ public class AuthController : ControllerBase
             {
                 Token = token,
                 Expiration = expiration,
-                Role = user.Role
+                Role = user.Role,
+                Id = user.Id
             };
             return Ok(authResponse);
         }
@@ -90,7 +91,8 @@ public class AuthController : ControllerBase
             {
                 Token = token,
                 Expiration = expiration,
-                Role = user.Role
+                Role = user.Role,
+                Id = user.Id
             };
             return Ok(authResponse);
         }
