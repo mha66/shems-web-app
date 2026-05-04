@@ -2,7 +2,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { Navbar, Nav, Container, Button, Badge } from 'react-bootstrap';
 import authService from '../services/authService';
 
-const Navigation = ({ setIsAuthenticated }) => {
+const NavigationBar = ({ setIsAuthenticated }) => {
   const navigate = useNavigate();
   
   // Grab the auth state and role to customize what the user sees
@@ -60,4 +60,4 @@ const Navigation = ({ setIsAuthenticated }) => {
   );
 };
 
-export default Navigation;
+export default NavigationBar;

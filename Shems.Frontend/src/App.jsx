@@ -3,7 +3,7 @@ import { Routes, Route, Link, useNavigate } from 'react-router-dom';
 // Services
 import authService from './services/authService';
 // Components
-import Navigation from './components/Navigation';
+import NavigationBar from './components/NavigationBar';
 import ProtectedRoute from './components/ProtectedRoute';
 import AdminRoute from './components/AdminRoute';
 // Pages
@@ -31,8 +31,8 @@ function App() {
 
   return (
     <div>
-      {/* Only show navigation if the user is logged in */}
-      <Navigation setIsAuthenticated={setIsAuthenticated} />
+      {/* Only show navigation bar if the user is logged in */}
+      <NavigationBar setIsAuthenticated={setIsAuthenticated} />
 
       <Routes>
         {/* Public Routes */}
