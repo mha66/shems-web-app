@@ -1,6 +1,6 @@
 import { Navigate } from 'react-router-dom';
 
-const AdminRoute = ({ children }) => {
+const AdminRoute = ({ redirectPath, children }) => {
   const isAuthenticated = localStorage.getItem('isAuthenticated') === 'true';
   const userRole = localStorage.getItem('userRole');
 
@@ -9,8 +9,7 @@ const AdminRoute = ({ children }) => {
   }
 
   if (userRole !== 'Admin') {
-    // If they are logged in but NOT an admin, kick them back to the list page
-    return <Navigate to="/devices" replace />; 
+    return <Navigate to={redirectPath} replace />; 
   }
 
   return children;

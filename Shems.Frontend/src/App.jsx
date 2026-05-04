@@ -1,12 +1,12 @@
 import { useState } from 'react';
 import { Routes, Route, Link, useNavigate } from 'react-router-dom';
-
+// Services
 import authService from './services/authService';
-
+// Components
 import Navigation from './components/Navigation';
 import ProtectedRoute from './components/ProtectedRoute';
 import AdminRoute from './components/AdminRoute';
-
+// Pages
 import Login from './pages/Login';
 import Register from './pages/Register';
 import Home from './pages/Home';
@@ -28,14 +28,6 @@ function App() {
     localStorage.getItem('isAuthenticated') === 'true'
   );
 
-  // const handleLogout = async () => {
-  //   // Call your backend logout endpoint to clear the cookie
-  //   await authService.logout();
-    
-  //   setIsAuthenticated(false);
-  //   //localStorage.removeItem('isAuthenticated');
-  //   navigate('/login');
-  // };
 
   return (
     <div>
@@ -84,7 +76,7 @@ function App() {
         <Route 
           path="/devices/new" 
           element={
-            <AdminRoute>
+            <AdminRoute redirectPath="/devices">
               <CreateDevice />
             </AdminRoute>
           } 
@@ -92,7 +84,7 @@ function App() {
         <Route 
           path="/devices/edit/:id" 
           element={
-            <AdminRoute>
+            <AdminRoute redirectPath="/devices">
               <EditDevice />
             </AdminRoute>
           } 
@@ -109,7 +101,7 @@ function App() {
         <Route 
           path="/zones/new" 
           element={
-            <AdminRoute>
+            <AdminRoute redirectPath="/zones">
               <CreateZone />
             </AdminRoute>
           } 
@@ -126,7 +118,7 @@ function App() {
         <Route 
           path="/alerts/new" 
           element={
-            <AdminRoute>
+            <AdminRoute redirectPath="/alerts">
               <CreateAlertProfile />
             </AdminRoute>
           } 
@@ -134,7 +126,7 @@ function App() {
         <Route 
           path="/alerts/edit/:id" 
           element={
-            <AdminRoute>
+            <AdminRoute redirectPath="/alerts">
               <EditAlertProfile />
             </AdminRoute>
           } 
