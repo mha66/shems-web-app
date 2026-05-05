@@ -14,11 +14,11 @@ const Login = ({ setIsAuthenticated }) => {
     setError(''); // Clear any previous errors
 
     try {
-      // Send the data to your backend AuthController
+      // Send the data to the backend AuthController
       const response = await authService.login({ username: username, password: password });
       
       // If successful, the backend automatically attaches the secure cookie to your browser.
-      // Now we just update our React state to unlock the protected routes.
+      // Update the React state to unlock the protected routes.
       setIsAuthenticated(true);
       localStorage.setItem('isAuthenticated', 'true'); // Keeps you logged in if you refresh the page
       localStorage.setItem('userRole', response.data.role); // Store the user role for later use (like showing/hiding admin features)

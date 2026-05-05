@@ -7,10 +7,7 @@ const EditAlertProfile = () => {
   const { id } = useParams();
   const navigate = useNavigate();
 
-  // State to display the read-only alert type
   const [alertType, setAlertType] = useState('');
-  
-  // State for the editable threshold matching the DTO
   const [threshold, setThreshold] = useState('');
   
   const [loading, setLoading] = useState(true);

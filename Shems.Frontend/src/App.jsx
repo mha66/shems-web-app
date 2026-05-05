@@ -21,13 +21,10 @@ import CreateAlertProfile from './pages/AlertProfiles/CreateAlertProfile';
 import EditAlertProfile from './pages/AlertProfiles/EditAlertProfile';
 
 function App() {
-  const navigate = useNavigate();
-
   // Initialize state based on localStorage so it survives page reloads
   const [isAuthenticated, setIsAuthenticated] = useState(
     localStorage.getItem('isAuthenticated') === 'true'
   );
-
 
   return (
     <div>

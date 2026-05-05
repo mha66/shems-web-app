@@ -8,6 +8,7 @@ const authService = {
   logout: () => {
     localStorage.removeItem('isAuthenticated');
     localStorage.removeItem('userRole');
+    localStorage.removeItem('userId');
     return api.post('/auth/logout'); 
   }
 };

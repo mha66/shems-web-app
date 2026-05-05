@@ -10,7 +10,7 @@ const NavigationBar = ({ setIsAuthenticated }) => {
   const userRole = localStorage.getItem('userRole');
 
    const handleLogout = async () => {
-    // Call your backend logout endpoint to clear the cookie
+    // Call backend logout endpoint to clear the cookie
     await authService.logout();
     setIsAuthenticated(false);
     navigate('/login');
@@ -24,7 +24,7 @@ const NavigationBar = ({ setIsAuthenticated }) => {
       <Container>
         {/* Brand Logo / Name */}
         <Navbar.Brand as={Link} to="/" className="fw-bold text-success">
-          <i className="bi bi-lightning-charge-fill me-2"></i> {/* Optional: Bootstrap icon */}
+          <i className="bi bi-lightning-charge-fill me-2"></i> {/* Bootstrap icon */}
           Smart Home Hub
         </Navbar.Brand>
         

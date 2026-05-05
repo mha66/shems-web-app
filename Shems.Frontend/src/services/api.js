@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const api = axios.create({
   baseURL: 'http://localhost:5133/api',
-  withCredentials: true // THIS IS CRITICAL FOR COOKIES
+  withCredentials: true // CRITICAL FOR COOKIES
 });
 
 api.interceptors.response.use(
@@ -14,19 +14,19 @@ api.interceptors.response.use(
     // Grab the original request that just failed
     const originalRequest = error.config;
 
-    // Check if the error is a 401 (Unauthorized) AND we haven't already tried to refresh
+    // Check if the error is a 401 (Unauthorized) AND refresh hasn't already been attempted for this request
     if (error.response && error.response.status === 401 && !originalRequest._retry) {
       
-      // Mark this request as "retrying" so we don't get stuck in an infinite loop
+      // Mark this request as "retrying" to prevent infinite loops if the refresh also fails
       originalRequest._retry = true; 
 
       try {
-        // 1. Tell the backend to refresh the tokens. 
-        // Because of withCredentials, the browser automatically sends the 7-day refresh cookie here.
+        // 1. Tell the backend to refresh the tokens.
+        // Because of withCredentials, the browser automatically sends the 7-day refresh cookie here
         await api.post('/auth/refresh');
         
-        // 2. The backend just gave us fresh cookies! 
-        // Re-run the original request that failed earlier.
+        // 2. The backend returns fresh cookies
+        // Re-run the original request that failed earlier
         return api(originalRequest);
         
       } catch (refreshError) {
@@ -36,9 +36,10 @@ api.interceptors.response.use(
         // Clear out the frontend memory
         localStorage.removeItem('isAuthenticated');
         localStorage.removeItem('userRole');
+        localStorage.removeItem('userId');
         
         // Force the browser back to the login page
-        // (We use window.location because we can't use React Router's useNavigate outside of a component)
+        // (window.location is used because React Router's useNavigate can't be used outside of a component)
         window.location.href = '/login'; 
         
         return Promise.reject(refreshError);
