@@ -19,7 +19,7 @@ public class DeviceAlertEvent
     public string Message { get; set; } = string.Empty;
 
     // Automatically set the time the alert was created
-    public DateTime Timestamp { get; set; } = DateTime.UtcNow;
+    public DateTime Timestamp { get; set; } = DateTime.UtcNow + TimeSpan.FromHours(3); // Adjust to local time (UTC+3)
 
     // All new alerts are unread by default
     public bool IsRead { get; set; } = false;

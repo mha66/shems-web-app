@@ -72,7 +72,7 @@ public class DeviceMonitoringService : IDeviceMonitoringService
                         DeviceId = device.Id,
                         ResidentId = sub.ResidentId,
                         Message = message,
-                        Timestamp = DateTime.UtcNow,
+                        Timestamp = DateTime.UtcNow + TimeSpan.FromHours(3), // Adjust to local time (UTC+3)
                         IsRead = false
                     };
                     

@@ -123,7 +123,7 @@ app.UseHangfireDashboard("/hangfire"); // Map the Hangfire visual dashboard
 RecurringJob.AddOrUpdate<IDeviceMonitoringService>(
     "power-spike-monitor",
     service => service.CheckDevicePowerDrawsAsync(null!), // Hangfire will inject the PerformContext when it runs
-    Cron.Minutely);
+    Cron.MinuteInterval(5)); // Every 5 minutes
 
 app.MapControllers();
 app.Run();
