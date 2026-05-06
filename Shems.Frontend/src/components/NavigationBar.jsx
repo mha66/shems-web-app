@@ -1,6 +1,7 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { Navbar, Nav, Container, Button, Badge } from 'react-bootstrap';
 import authService from '../services/authService';
+import NotificationBell from './NotificationBell';
 
 const NavigationBar = ({ setIsAuthenticated }) => {
   const navigate = useNavigate();
@@ -54,7 +55,7 @@ const NavigationBar = ({ setIsAuthenticated }) => {
             <Nav.Link as={Link} to="/profile" className="me-3">
               Edit My Profile
             </Nav.Link>
-            
+            <NotificationBell />
             <Button variant="outline-light" size="sm" onClick={handleLogout}>
               Logout
             </Button>

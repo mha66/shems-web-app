@@ -10,4 +10,7 @@ public interface IResidentService
     
     // Returns a boolean so the Controller knows if the user actually exists
     Task<bool> UpdateResidentSubscriptionsAsync(string residentId, List<int> alertProfileIds);
+    Task<IEnumerable<DeviceAlertDto>> GetUnreadAlertsAsync(string residentId);
+    Task<bool> MarkAlertAsReadAsync(int alertId, string residentId);
+    Task<bool> MarkAllAlertsAsReadAsync(string residentId);
 }

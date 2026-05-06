@@ -94,4 +94,30 @@ public class ResidentController : ControllerBase
 
         return Ok("Subscriptions successfully updated.");
     }
+
+    [HttpGet("{id}/alerts/unread")]
+    [Authorize] // Standard users can access this, not just Admins
+    public async Task<IActionResult> GetUnreadAlerts(string id)
+    {
+        var alerts = await _residentService.GetUnreadAlertsAsync(id);
+        return Ok(alerts);
+    }
+
+    [HttpPut("{id}/alerts/{alertId}/read")]
+    [Authorize]
+    public async Task<IActionResult> MarkAlertAsRead(string id, int alertId)
+    {
+        var success = await _residentService.MarkAlertAsReadAsync(alertId, id);
+        if (!success) return NotFound("Alert not found or access denied.");
+        
+        return Ok();
+    }
+
+    [HttpPut("{id}/alerts/read-all")]
+    [Authorize]
+    public async Task<IActionResult> MarkAllAlertsAsRead(string id)
+    {
+        await _residentService.MarkAllAlertsAsReadAsync(id);
+        return Ok();
+    }
 }

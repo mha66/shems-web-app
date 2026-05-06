@@ -120,5 +120,44 @@ namespace Shems.Api.Services
             await _context.SaveChangesAsync();
             return true;
         }
+        public async Task<IEnumerable<DeviceAlertDto>> GetUnreadAlertsAsync(string residentId)
+        {
+            return await _context.DeviceAlertEvents
+                .Include(a => a.Device) // Pulls in the related device data
+                .Where(a => a.ResidentId == residentId && !a.IsRead)
+                .OrderByDescending(a => a.Timestamp) // Newest alerts first
+                .Select(a => new DeviceAlertDto
+                {
+                    Id = a.Id,
+                    DeviceId = a.DeviceId,
+                    DeviceName = a.Device != null ? a.Device.Name : "Unknown Device",
+                    Message = a.Message,
+                    Timestamp = a.Timestamp,
+                    IsRead = a.IsRead
+                })
+                .ToListAsync();
+        }
+
+        public async Task<bool> MarkAlertAsReadAsync(int alertId, string residentId)
+        {
+            // Ensure the user actually owns this alert before marking it read
+            var alert = await _context.DeviceAlertEvents
+                .FirstOrDefaultAsync(a => a.Id == alertId && a.ResidentId == residentId);
+
+            if (alert == null) return false;
+
+            alert.IsRead = true;
+            await _context.SaveChangesAsync();
+            return true;
+        }
+        public async Task<bool> MarkAllAlertsAsReadAsync(string residentId)
+        {
+            // EF Core 7+ Bulk Update: Instantly flips all unread alerts to true in one SQL query
+            var updatedCount = await _context.DeviceAlertEvents
+                .Where(a => a.ResidentId == residentId && !a.IsRead)
+                .ExecuteUpdateAsync(s => s.SetProperty(a => a.IsRead, true));
+
+            return updatedCount > 0; // Returns true if at least one alert was updated
+        }
     }
 }
