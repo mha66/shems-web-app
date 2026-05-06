@@ -62,4 +62,36 @@ public class ResidentController : ControllerBase
 
         return NoContent();
     }
+
+    // Get all users so the Admin can populate a dropdown
+    [HttpGet]
+    [Authorize(Roles = "Admin")]
+    public async Task<IActionResult> GetAllResidents()
+    {
+        var residents = await _residentService.GetAllResidentsAsync();
+        return Ok(residents);
+    }
+
+    // Get the current subscriptions for a specific user to pre-check the boxes
+    [HttpGet("{id}/subscriptions")]
+    [Authorize(Roles = "Admin")]
+    public async Task<IActionResult> GetResidentSubscriptions(string id)
+    {
+        var subscribedProfileIds = await _residentService.GetResidentSubscriptionsAsync(id);
+        return Ok(subscribedProfileIds);
+    }
+
+    // Save the new list of checked boxes
+    [HttpPost("{id}/subscriptions")]
+    [Authorize(Roles = "Admin")]
+    public async Task<IActionResult> UpdateResidentSubscriptions(string id, [FromBody] SubscriptionUpdateDto dto)
+    {
+        var success = await _residentService.UpdateResidentSubscriptionsAsync(id, dto.AlertProfileIds);
+        
+        // If the service returns false, the user ID was invalid.
+        if (!success) 
+            return NotFound("User not found.");
+
+        return Ok("Subscriptions successfully updated.");
+    }
 }

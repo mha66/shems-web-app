@@ -19,6 +19,7 @@ import CreateZone from './pages/Zones/CreateZone';
 import AlertProfileList from './pages/AlertProfiles/AlertProfileList';
 import CreateAlertProfile from './pages/AlertProfiles/CreateAlertProfile';
 import EditAlertProfile from './pages/AlertProfiles/EditAlertProfile';
+import ManageSubscriptions from './pages/AlertProfiles/ManageSubscriptions';
 
 function App() {
   // Initialize state based on localStorage so it survives page reloads
@@ -125,6 +126,14 @@ function App() {
           element={
             <AdminRoute redirectPath="/alerts">
               <EditAlertProfile />
+            </AdminRoute>
+          } 
+        />
+        <Route 
+          path="/alerts/subscriptions" 
+          element={
+            <AdminRoute redirectPath="/alerts">
+              <ManageSubscriptions />
             </AdminRoute>
           } 
         />

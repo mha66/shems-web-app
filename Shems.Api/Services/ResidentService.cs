@@ -77,5 +77,48 @@ namespace Shems.Api.Services
             await _context.SaveChangesAsync();
             return true;
         }
+        public async Task<IEnumerable<ResidentSummaryDto>> GetAllResidentsAsync()
+        {
+            return await _context.Users
+                .Select(u => new ResidentSummaryDto
+                {
+                    Id = u.Id,
+                    UserName = u.UserName!,
+                    Email = u.Email!
+                })
+                .ToListAsync();
+        }
+
+        public async Task<IEnumerable<int>> GetResidentSubscriptionsAsync(string residentId)
+        {
+            return await _context.AlertSubscriptions
+                .Where(sub => sub.ResidentId == residentId)
+                .Select(sub => sub.AlertProfileId)
+                .ToListAsync();
+        }
+
+        public async Task<bool> UpdateResidentSubscriptionsAsync(string residentId, List<int> alertProfileIds)
+        {
+            // Verify user exists
+            var resident = await _context.Users.FindAsync(residentId);
+            if (resident == null) return false;
+
+            // Delete old subscriptions
+            var oldSubscriptions = _context.AlertSubscriptions.Where(sub => sub.ResidentId == residentId);
+            _context.AlertSubscriptions.RemoveRange(oldSubscriptions);
+
+            // Add new subscriptions
+            foreach (var profileId in alertProfileIds)
+            {
+                _context.AlertSubscriptions.Add(new AlertSubscription
+                {
+                    ResidentId = residentId,
+                    AlertProfileId = profileId
+                });
+            }
+
+            await _context.SaveChangesAsync();
+            return true;
+        }
     }
 }
