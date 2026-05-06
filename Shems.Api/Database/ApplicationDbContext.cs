@@ -14,4 +14,6 @@ public class ApplicationDbContext : IdentityDbContext<Resident>
     public required DbSet<Device> Devices { get; set; }
     public required DbSet<AlertProfile> AlertProfiles { get; set; }
     public required DbSet<ResidentProfile> ResidentProfiles { get; set; }
+    public required DbSet<DeviceAlertEvent> DeviceAlertEvents { get; set; }
+    public required DbSet<AlertSubscription> AlertSubscriptions { get; set; }
 }
