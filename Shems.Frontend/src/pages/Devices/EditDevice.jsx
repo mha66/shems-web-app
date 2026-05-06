@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate, useParams, Link } from 'react-router-dom';
 import { Container, Form, Button, Card, Alert, Spinner } from 'react-bootstrap';
 import deviceService from '../../services/deviceService';
+import alertProfileService from '../../services/alertProfileService';
 
 const EditDevice = () => {
   const { id } = useParams();
@@ -17,16 +18,22 @@ const EditDevice = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
 
+  const [alertProfiles, setAlertProfiles] = useState([]);
+  const [selectedAlertId, setSelectedAlertId] = useState('');
+  const [assignMessage, setAssignMessage] = useState({ type: '', text: '' });
+
   useEffect(() => {
-    const fetchDevice = async () => {
+    const fetchData = async () => {
       try {
-        const response = await deviceService.getDeviceById(id);
+        const deviceRes = await deviceService.getDeviceById(id);
         
         // Populate the form with the existing data
-        setDeviceName(response.data.name);
-        setIsOn(response.data.isOn);
-        setCurrentPowerDraw(response.data.currentPowerDraw);
+        setDeviceName(deviceRes.data.name);
+        setIsOn(deviceRes.data.isOn);
+        setCurrentPowerDraw(deviceRes.data.currentPowerDraw);
         
+        const alertsRes = await alertProfileService.getAllAlertProfiles();
+        setAlertProfiles(alertsRes.data);
         setLoading(false);
       } catch (err) {
         console.error('Failed to fetch device', err);
@@ -35,7 +42,7 @@ const EditDevice = () => {
       }
     };
 
-    fetchDevice();
+    fetchData();
   }, [id]);
 
   const handleSubmit = async (e) => {
@@ -63,6 +70,24 @@ const EditDevice = () => {
       } else {
         setError('Failed to update device. Please try again.');
       }
+    }
+  };
+
+  const handleAssignAlert = async () => {
+    if (!selectedAlertId) return;
+    
+    setAssignMessage({ type: '', text: '' });
+
+    try {
+      await deviceService.assignAlertProfile(id, selectedAlertId);
+      setAssignMessage({ type: 'success', text: 'Alert profile successfully assigned!' });
+      setSelectedAlertId(''); // Reset the dropdown
+    } catch (err) {
+      console.error(err);
+      setAssignMessage({ 
+        type: 'danger', 
+        text: err.response?.data || 'Failed to assign profile. It might already be linked.' 
+      });
     }
   };
 
@@ -117,6 +142,43 @@ const EditDevice = () => {
           </Form>
         </Card.Body>
       </Card>
+      <Card className="shadow-sm mt-4 border-info">
+      <Card.Header className="bg-info text-dark fw-bold">
+        Assign Monitoring Rule
+      </Card.Header>
+      <Card.Body>
+        <p className="text-muted small mb-3">
+          Select an Alert Profile to monitor this device's power consumption.
+        </p>
+
+        {assignMessage.text && (
+          <Alert variant={assignMessage.type}>{assignMessage.text}</Alert>
+        )}
+
+        <div className="d-flex gap-2">
+          <select 
+            className="form-select" 
+            value={selectedAlertId} 
+            onChange={(e) => setSelectedAlertId(e.target.value)}
+          >
+            <option value="">-- Select an Alert Profile --</option>
+            {alertProfiles.map(profile => (
+              <option key={profile.id} value={profile.id}>
+                {profile.alertType} (Limit: {profile.threshold}W)
+              </option>
+            ))}
+          </select>
+          
+          <Button 
+            variant="primary" 
+            onClick={handleAssignAlert}
+            disabled={!selectedAlertId} // Disables button if nothing is selected
+          >
+            Assign
+          </Button>
+        </div>
+      </Card.Body>
+    </Card>
     </Container>
   );
 };
