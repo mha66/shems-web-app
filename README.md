@@ -80,6 +80,11 @@ Below are the core endpoints available in the system. Full schemas and parameter
 ### Residents (`/api/resident`)
 * `GET /{id}/dashboard` - Retrieves a specific resident's system overview.
 * `PUT /{id}/profile` - Updates a resident's personal preferences.
+* `GET /{id}/subscriptions` - Retrieves a resident's assigned alert profiles. *(Requires Admin)*.
+* `POST /{id}/subscriptions` - Updates a resident's assigned alert profiles. *(Requires Admin)*.
+* `GET /{id}/alerts/unread` - Retrieves a resident's active, unread notifications.
+* `PUT /{id}/alerts/{alertId}/read` - Marks a specific alert as read.
+* `PUT /{id}/alerts/read-all` - Bulk updates all unread alerts for the user to read status.
 
 ### Devices & Zones (`/api/device` | `/api/zone`)
 * `GET /` - Retrieves all registered components.
@@ -88,8 +93,12 @@ Below are the core endpoints available in the system. Full schemas and parameter
 
 ---
 
-## ⚙️ Background Monitoring (Hangfire)
-The API features an automated worker service scheduled via Hangfire. Every minute, the system queries the database to compare the `CurrentPowerDraw` of all active devices against their assigned `AlertProfile` thresholds. If a spike is detected, an alert is logged to the system console and Hangfire dashboard. Access the dashboard at `https://localhost:<port>/hangfire`.
+## ⚙️ Background Monitoring & Multi-Tenant Notifications
+The API features an automated worker service scheduled via **Hangfire**, paired with a scalable, multi-tenant subscription engine. 
+
+1. **Detection:** Every minute, Hangfire queries the database to compare the `CurrentPowerDraw` of all active devices against their assigned `AlertProfile` thresholds. 
+2. **Distribution:** If a spike is detected, the system queries the `AlertSubscriptions` mapping table to determine exactly which users need to be notified. It then generates personalized `DeviceAlertEvent` records in the database via optimized batch inserts.
+3. **Delivery:** The React frontend utilizes a silent polling engine inside a dedicated `NotificationBell` component. It fetches unread alerts seamlessly in the background, providing users with a near real-time notification experience, complete with unread badge counters and bulk-clear capabilities.
 
 ---
 
@@ -102,11 +111,11 @@ Demonstrates the login and registeration pages.
 
 ### 2. User Experience & Dashboard
 Demonstrates the personalized resident dashboard summarizing power draw, active devices, and budget data.
-<img width="2559" height="1395" alt="Home" src="https://github.com/user-attachments/assets/453399a6-366f-40d7-b6aa-af7e8e81e9cc" />
+<img width="2559" height="1396" alt="Home" src="https://github.com/user-attachments/assets/7ac690fa-659a-4447-b2ad-21dff11c6d9c" />
 
 ### 3. Device & Zone Management
 Demonstrates the data tables highlighting active devices, power consumption metrics, and administrative action buttons.
-<img width="2559" height="1400" alt="Device List" src="https://github.com/user-attachments/assets/3abc9dd0-f9b5-4ec6-b832-26d0ef8d4f22" />
+<img width="2559" height="1397" alt="Device List" src="https://github.com/user-attachments/assets/81f36fa9-7a8e-4e6d-beda-606fcc562e52" />
 
 ### 4. Secure Dual-Cookie Authentication
 Demonstrates the network tab showing the short-lived JWT and long-lived Refresh Token cookies being securely set as `HttpOnly`.
@@ -126,3 +135,13 @@ Demonstrates the working .NET 10 Swagger configuration.
 Demonstrates the Hangfire dashboard successfully executing the power-monitoring background job.
 <img width="2539" height="1383" alt="Hangfire Jobs" src="https://github.com/user-attachments/assets/05d0efb2-b603-4987-9397-e8a9611e2a29" />
 <img width="2544" height="1378" alt="Hangfire Job Alert" src="https://github.com/user-attachments/assets/e1c64970-a78d-4633-b3ef-5553d4837331" />
+
+### 8. Admin Subscription Management
+Demonstrates the administrative UI where system admins can select specific users and assign personalized monitoring rules via checkboxes.
+<img width="2559" height="1397" alt="image" src="https://github.com/user-attachments/assets/e154be8d-b199-4daf-98bb-a365889a7460" />
+
+
+### 9. Real-Time Notification Bell
+Demonstrates the user-facing navigation bar with the dynamic notification bell, showing unread alert badges and the dropdown UI.
+<img width="2558" height="1398" alt="image" src="https://github.com/user-attachments/assets/9fe595d3-a3cd-4e8a-8909-733d3d0d0dc9" />
+
