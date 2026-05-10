@@ -48,6 +48,7 @@ const Login = ({ setIsAuthenticated }) => {
                 onChange={(e) => setUsername(e.target.value)} 
                 required 
                 placeholder="Enter username"
+                aria-label="Username"
               />
             </Form.Group>
 
@@ -59,6 +60,7 @@ const Login = ({ setIsAuthenticated }) => {
                 onChange={(e) => setPassword(e.target.value)} 
                 required 
                 placeholder="Enter password"
+                aria-label="Password"
               />
             </Form.Group>
 

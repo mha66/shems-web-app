@@ -63,6 +63,7 @@ const Register = ({ setIsAuthenticated }) => {
                 onChange={(e) => setUsername(e.target.value)} 
                 required 
                 placeholder="Choose a username"
+                aria-label="Username"
               />
 
             </Form.Group>
@@ -74,6 +75,7 @@ const Register = ({ setIsAuthenticated }) => {
                 onChange={(e) => setFirstName(e.target.value)}
                 required
                 placeholder="Enter your first name"
+                aria-label="First Name"
               />
             </Form.Group>
 
@@ -85,6 +87,7 @@ const Register = ({ setIsAuthenticated }) => {
                 onChange={(e) => setLastName(e.target.value)}
                 required
                 placeholder="Enter your last name"
+                aria-label="Last Name"
               />
             </Form.Group>
 
@@ -96,6 +99,7 @@ const Register = ({ setIsAuthenticated }) => {
                 onChange={(e) => setEmail(e.target.value)} 
                 required 
                 placeholder="Enter your email"
+                aria-label="Email"
               />
             </Form.Group>
 
@@ -107,6 +111,7 @@ const Register = ({ setIsAuthenticated }) => {
                 onChange={(e) => setPassword(e.target.value)} 
                 required 
                 placeholder="Create a password"
+                aria-label="Password"
               />
             </Form.Group>
 
