@@ -87,7 +87,7 @@ const Home = () => {
           <Card className="h-100 shadow-sm border-0">
             <Card.Body className="text-center">
               <h6 className="text-muted text-uppercase mb-3">Monthly Budget</h6>
-              <h2 className="display-5 text-success mb-0">
+              <h2 className="display-5 bright-green mb-0">
                 <span className="fs-4 text-muted">$</span>{dashboardData.targetMonthlyBudget}
               </h2>
             </Card.Body>

@@ -24,7 +24,7 @@ const NavigationBar = ({ setIsAuthenticated }) => {
     <Navbar bg="dark" variant="dark" expand="lg" className="mb-4 shadow-sm">
       <Container>
         {/* Brand Logo / Name */}
-        <Navbar.Brand as={Link} to="/" className="fw-bold text-success">
+        <Navbar.Brand as={Link} to="/" className="fw-bold bright-green">
           <i className="bi bi-lightning-charge-fill me-2"></i> {/* Bootstrap icon */}
           Smart Home Hub
         </Navbar.Brand>
@@ -45,7 +45,7 @@ const NavigationBar = ({ setIsAuthenticated }) => {
             {/* Show an Admin Badge so the user knows their current privileges */}
             {userRole === 'Admin' && (
               <>
-                <Badge bg="danger" className="me-3">Admin Mode</Badge>
+                <Badge className="bg-dark-red me-3">Admin Mode</Badge>
                 <Nav.Link as={Link} to="/alerts/subscriptions" className="me-3 text-warning">
                   <i className="bi bi-envelope-paper me-1"></i> Subscriptions
                 </Nav.Link>

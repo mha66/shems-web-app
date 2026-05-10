@@ -62,9 +62,8 @@ const NotificationBell = () => {
         {/* Only show the red badge if there are actually alerts */}
         {alerts.length > 0 && (
           <Badge 
-            bg="danger" 
             pill 
-            className="position-absolute top-0 start-100 translate-middle"
+            className="position-absolute bg-dark-red top-0 start-100 translate-middle"
             style={{ fontSize: '0.65rem' }}
           >
             {alerts.length}
@@ -94,7 +93,7 @@ const NotificationBell = () => {
               className="border-bottom py-2 text-wrap"
             >
               <div className="d-flex justify-content-between align-items-start">
-                <strong className="text-danger small">{alert.deviceName}</strong>
+                <strong className="bright-red small">{alert.deviceName}</strong>
                 <span className="text-muted" style={{ fontSize: '0.7rem' }}>
                   {new Date(alert.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                 </span>

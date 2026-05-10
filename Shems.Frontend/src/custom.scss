@@ -41,3 +41,18 @@ $card-box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
 /* --- 2. IMPORT BOOTSTRAP --- */
 // (This must come AFTER your variables so Bootstrap knows to use them)
 @import "bootstrap/scss/bootstrap";
+
+/* --- Custom Utility Classes --- */
+
+.bg-dark-red {
+  background-color: #b30021 !important; /* Deeper, darker red */
+  color: #ffffff !important; /* Ensure text stays crisp white */
+}
+
+.bright-red{
+    color: #ff5a7b !important; 
+}
+
+.bright-green{
+    color: #00c853 !important; /* Vibrant neon green */
+}
