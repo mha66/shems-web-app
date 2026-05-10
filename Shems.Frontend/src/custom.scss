@@ -1,0 +1,43 @@
+/* --- 1. YOUR CUSTOM DNA --- */
+
+// Smart Home Color Palette
+$primary: #00d2ff;   
+$success: #007f41;   
+$danger:  #ff1744;   // (If this red is still too dark, try a brighter neon red like #ff5252)
+$dark:    #121212;   
+$light:   #2d2d2d;   
+
+// Fix #1: Make "text-muted" much lighter so it pops on dark backgrounds
+$text-muted: #adb5bd; 
+
+// Fix #2: Global Table Text and Border Colors
+$table-color: #f8f9fa; // Forces all table text to be light
+$table-border-color: rgba(255, 255, 255, 0.1); // Soft light borders
+$table-bg: transparent; // Keeps the dark background shining through
+$table-striped-color: #f8f9fa;
+$table-striped-bg: rgba(255, 255, 255, 0.02); // Very subtle zebra striping
+$table-hover-color: #f8f9fa;
+$table-hover-bg: rgba(255, 255, 255, 0.05); // Subtle highlight when hovering rows
+
+// Fix #3: Dropdown Menu Dark Theme Integration
+$dropdown-dark-bg: $light; // Matches your sleek card backgrounds
+$dropdown-dark-border-color: rgba(255, 255, 255, 0.05);
+$dropdown-dark-color: #f8f9fa;
+$dropdown-dark-link-color: #f8f9fa;
+$dropdown-dark-link-hover-color: $primary; // Turns neon blue when hovered!
+$dropdown-dark-link-hover-bg: rgba(255, 255, 255, 0.05); // Subtle highlight
+$dropdown-dark-divider-bg: rgba(255, 255, 255, 0.1);
+
+// Global Component Styling
+$border-radius: 1rem; 
+$body-bg: $dark;      
+$body-color: #f8f9fa;
+
+// Override Card defaults to look like sleek dashboard widgets
+$card-bg: $light;
+$card-border-color: rgba(255, 255, 255, 0.05);
+$card-box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+
+/* --- 2. IMPORT BOOTSTRAP --- */
+// (This must come AFTER your variables so Bootstrap knows to use them)
+@import "bootstrap/scss/bootstrap";

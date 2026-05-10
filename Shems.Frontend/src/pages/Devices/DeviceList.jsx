@@ -53,7 +53,7 @@ const DeviceList = () => {
         )}
       </div>
 
-      <Table striped bordered hover responsive>
+      <Table striped bordered hover responsive variant="dark">
         <thead className="table-dark">
           <tr>
             <th>ID</th>
@@ -74,7 +74,7 @@ const DeviceList = () => {
             devices.map((device) => (
               <tr key={device.id}>
                 <td>{device.id}</td>
-                <td>{device.name}</td>
+                <td className="fw-bold">{device.name}</td>
                 
                 {/* Fallback to 'Unassigned' if the device doesn't have a zone yet */}
                 <td>{device.zoneName ? device.zoneName : <span className="text-muted">Unassigned</span>}</td>

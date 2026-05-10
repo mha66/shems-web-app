@@ -55,7 +55,7 @@ const ZoneList = () => {
         )}
       </div>
 
-      <Table striped bordered hover responsive>
+      <Table striped bordered hover responsive variant="dark">
         <thead className="table-dark">
           <tr>
             <th>ID</th>
@@ -75,7 +75,6 @@ const ZoneList = () => {
             zones.map((zone) => (
               <tr key={zone.id}>
                 <td>{zone.id}</td>
-                {/* Notice this changed from zone.name to zone.zoneName to match your DTO */}
                 <td className="fw-bold">{zone.zoneName}</td>
                 
                 {/* Added a nice badge to highlight how many devices are active */}

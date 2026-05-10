@@ -50,7 +50,13 @@ const NotificationBell = () => {
 
   return (
     <Dropdown align="end" className="me-3">
-      <Dropdown.Toggle variant="light" id="dropdown-custom-components" className="position-relative border-0 shadow-sm">
+      <Dropdown.Toggle 
+        variant="light" 
+        id="dropdown-custom-components" 
+        className="position-relative border-0 shadow-sm"
+        title="Notifications"
+        aria-label="Notifications"
+      >
         <i className="bi bi-bell-fill fs-5 text-secondary"></i>
         
         {/* Only show the red badge if there are actually alerts */}
@@ -66,7 +72,7 @@ const NotificationBell = () => {
         )}
       </Dropdown.Toggle>
 
-      <Dropdown.Menu className="shadow" style={{ minWidth: '300px', maxHeight: '400px', overflowY: 'auto' }}>
+      <Dropdown.Menu variant="dark" className="shadow" style={{ minWidth: '300px', maxHeight: '400px', overflowY: 'auto' }}>
         <Dropdown.Header className="d-flex justify-content-between align-items-center fw-bold border-bottom pb-2 mb-2">
           <span>Notifications</span>
           {alerts.length > 0 && (
@@ -93,7 +99,7 @@ const NotificationBell = () => {
                   {new Date(alert.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                 </span>
               </div>
-              <div className="small text-dark mt-1">{alert.message}</div>
+              <div className="small mt-1">{alert.message}</div>
             </Dropdown.Item>
           ))
         )}

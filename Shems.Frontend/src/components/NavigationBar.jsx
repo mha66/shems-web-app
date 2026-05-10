@@ -56,7 +56,7 @@ const NavigationBar = ({ setIsAuthenticated }) => {
               Edit My Profile
             </Nav.Link>
             <NotificationBell />
-            <Button variant="outline-light" size="sm" onClick={handleLogout}>
+            <Button variant="outline-danger" size="sm" onClick={handleLogout}>
               Logout
             </Button>
           </Nav>
