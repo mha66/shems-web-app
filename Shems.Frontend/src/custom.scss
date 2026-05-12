@@ -1,7 +1,7 @@
 /* --- 1. CORE BRAND COLORS (Used in both themes) --- */
 
 // Smart Home Color Palette
-$primary: #00c3ef;   
+$primary: #00b3db;   
 $success: #007f41;   
 $danger:  #c90028;
 $warning: #9b5800;   
@@ -52,11 +52,19 @@ $color-mode-type: data;
   --bright-green: rgba(0, 200, 83, 0.8);
   --bright-red: rgba(255, 90, 123, 1);
   
+  --bs-primary: #12d4ff;
+  --bs-primary-rgb: 18, 212, 255;
   --bs-danger: #ff4545;
   --bs-danger-rgb: 255, 69, 69;
   --bs-warning: #ff8c00;
   --bs-warning-rgb: 255, 140, 0;
 
+
+  .btn-primary {
+    --bs-btn-bg: var(--bs-primary);
+    --bs-btn-border-color: var(--bs-primary);
+  }
+  
   .btn-outline-danger {
     --bs-btn-color: var(--bs-danger);
     --bs-btn-border-color: var(--bs-danger);
@@ -70,6 +78,13 @@ $color-mode-type: data;
     --bs-btn-active-bg: var(--bs-danger);
     --bs-btn-active-border-color: var(--bs-danger);
     --bs-btn-active-color: #121212;
+  }
+
+  .btn-danger {
+    --bs-btn-bg: var(--bs-danger);
+    --bs-btn-border-color: var(--bs-danger);
+    --bs-btn-hover-bg: #ff7a7a; /* Slightly lighter neon red on hover */
+    --bs-btn-hover-border-color: #ff7a7a;
   }
 
   /* Fix #1: Make "text-muted" much lighter */
