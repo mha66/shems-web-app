@@ -158,3 +158,35 @@ $color-mode-type: data;
 .bright-green {
   color: var(--bright-green) !important; /* Vibrant neon green */
 }
+
+/* --- Quick Action Card Styles --- */
+
+.transition-all {
+  transition: all 0.2s ease-in-out;
+}
+
+/* Base style for inactive devices */
+.glass-card-inactive {
+  background-color: rgba(255, 255, 255, 0.02);
+}
+
+.glass-card-inactive:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+/* Base style for active devices (Slight cyan tint) */
+.glass-card-active {
+  background-color: rgba(0, 210, 255, 0.08); 
+  border-color: rgba(0, 210, 255, 0.2) !important;
+}
+
+.glass-card-active:hover {
+  background-color: rgba(0, 210, 255, 0.12);
+}
+
+/* Custom Neon Switch */
+.custom-neon-switch .form-check-input:checked {
+  background-color: $primary;
+  border-color: $primary;
+  box-shadow: 0 0 8px rgba(0, 210, 255, 0.6);
+}

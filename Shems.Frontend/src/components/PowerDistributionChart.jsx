@@ -3,7 +3,7 @@ import { Card, Spinner } from 'react-bootstrap';
 import { PieChart, Pie, Cell, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import zoneService from '../services/zoneService'; // Make sure this path is correct!
 
-const PowerDistributionChart = () => {
+const PowerDistributionChart = ({refreshPage, refreshPageState}) => {
   const [chartData, setChartData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -43,7 +43,7 @@ const PowerDistributionChart = () => {
     };
 
     fetchZoneData();
-  }, []);
+  }, [refreshPageState]); // Re-fetch data whenever the parent signals a refresh
 
   // Custom Tooltip to look sleek in dark mode
   const CustomTooltip = ({ active, payload }) => {

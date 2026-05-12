@@ -3,11 +3,16 @@ import { Container, Row, Col, Card, Spinner, Alert } from 'react-bootstrap';
 import residentService from '../services/residentService';
 
 import PowerDistributionChart from '../components/PowerDistributionChart';
+import QuickActionCenter from '../components/QuickActionCenter';
 
 const Home = () => {
   const [dashboardData, setDashboardData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+
+  const [toggle, setToggle] = useState(false);
+  // This function forces a state change at the top level
+  const refreshPage = () => setToggle(prev => !prev);
 
   useEffect(() => {
     const fetchDashboard = async () => {
@@ -103,20 +108,18 @@ const Home = () => {
         </Col>
 
       </Row>
-      
+
       {/* Dashboard Widgets Row */}
       <Row className="mt-4">
         
         {/* Left Column: The Donut Chart (takes up 8 of 12 grid spaces) */}
         <Col lg={8} className="mb-4">
-          <PowerDistributionChart />
+          <PowerDistributionChart refreshPage={refreshPage} refreshPageState={toggle} />
         </Col>
 
         {/* Right Column: Placeholder for the next widget! (takes up 4 of 12 spaces) */}
         <Col lg={4} className="mb-4">
-          <Card className="h-100 border-0 shadow-sm d-flex align-items-center justify-content-center text-muted p-4">
-            <p className="mb-0">Quick Actions Coming Soon...</p>
-          </Card>
+          <QuickActionCenter refreshPage={refreshPage} refreshPageState={toggle} />
         </Col>
 
       </Row>
