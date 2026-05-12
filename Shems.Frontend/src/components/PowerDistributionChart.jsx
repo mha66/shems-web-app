@@ -9,12 +9,12 @@ const PowerDistributionChart = () => {
   const [error, setError] = useState(null);
 
   const BRAND_COLORS = [
-    '#00d2ff', // Neon Cyan
-    '#00c853', // Bright Green
-    '#ff5252', // Neon Red
-    '#ffb300', // Warning Yellow
-    '#b026ff', // Cyber Purple
-    '#00e5ff', // Light Blue
+    'var(--chart-color-1)',
+    'var(--chart-color-2)',
+    'var(--chart-color-3)',
+    'var(--chart-color-4)',
+    'var(--chart-color-5)',
+    'var(--chart-color-6)',
   ];
 
   useEffect(() => {

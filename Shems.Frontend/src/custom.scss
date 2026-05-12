@@ -37,6 +37,16 @@ $color-mode-type: data;
   --banner-bg-color: rgba(0, 210, 255, 0.25);
   --bright-green: rgba(0, 128, 53, 0.8);
   --bright-red: rgba(255, 40, 83, 1); 
+
+
+  /* Chart Palette - Richer colors for contrast on white */
+  --chart-color-1: #008eb3; /* Deep Cyan */
+  --chart-color-2: #008f3b; /* Forest Green */
+  --chart-color-3: #d32f2f; /* Crimson Red */
+  --chart-color-4: #c58900; /* Dark Amber */
+  --chart-color-5: #7b1fa2; /* Deep Purple */
+  --chart-color-6: #0097a7; /* Teal */
+
   /* Note: Tables, Dropdowns, and text-muted will automatically 
      use Bootstrap's excellent light-mode defaults here! */
 }
@@ -120,6 +130,14 @@ $color-mode-type: data;
     --bs-dropdown-link-hover-bg: rgba(255, 255, 255, 0.05);
     --bs-dropdown-divider-bg: rgba(255, 255, 255, 0.1);
   }
+
+  /* Chart Palette - Neons */
+  --chart-color-1: #00d2ff; 
+  --chart-color-2: #00c853; 
+  --chart-color-3: #ff5252; 
+  --chart-color-4: #ffb300; 
+  --chart-color-5: #b026ff; 
+  --chart-color-6: #00e5ff;
 }
 
 /* --- 5. CUSTOM UTILITY CLASSES (Available in both themes) --- */
