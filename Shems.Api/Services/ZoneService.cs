@@ -23,7 +23,7 @@ public class ZoneService : IZoneService
                     Id = z.Id,
                     ZoneName = z.Name,
                     ActiveDevicesCount = z.Devices.Count(d => d.IsOn),
-                    TotalCurrentWattage = z.Devices.Sum(d => d.CurrentPowerDraw)
+                    TotalCurrentWattage = z.Devices.Where(d => d.IsOn).Sum(d => d.CurrentPowerDraw)
                 })
                 .ToListAsync();
     }
@@ -38,7 +38,7 @@ public class ZoneService : IZoneService
                     Id = z.Id,
                     ZoneName = z.Name,
                     ActiveDevicesCount = z.Devices.Count(d => d.IsOn),
-                    TotalCurrentWattage = z.Devices.Sum(d => d.CurrentPowerDraw)
+                    TotalCurrentWattage = z.Devices.Where(d => d.IsOn).Sum(d => d.CurrentPowerDraw)
                 })
                 .FirstOrDefaultAsync();
     }
