@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react';
 import { Container, Row, Col, Card, Spinner, Alert } from 'react-bootstrap';
 import residentService from '../services/residentService';
 
+import PowerDistributionChart from '../components/PowerDistributionChart';
+
 const Home = () => {
   const [dashboardData, setDashboardData] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -97,6 +99,23 @@ const Home = () => {
                 {dashboardData.preferredTemperature}°
               </h2>
             </Card.Body>
+          </Card>
+        </Col>
+
+      </Row>
+      
+      {/* Dashboard Widgets Row */}
+      <Row className="mt-4">
+        
+        {/* Left Column: The Donut Chart (takes up 8 of 12 grid spaces) */}
+        <Col lg={8} className="mb-4">
+          <PowerDistributionChart />
+        </Col>
+
+        {/* Right Column: Placeholder for the next widget! (takes up 4 of 12 spaces) */}
+        <Col lg={4} className="mb-4">
+          <Card className="h-100 border-0 shadow-sm d-flex align-items-center justify-content-center text-muted p-4">
+            <p className="mb-0">Quick Actions Coming Soon...</p>
           </Card>
         </Col>
 
