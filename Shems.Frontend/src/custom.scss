@@ -37,6 +37,7 @@ $color-mode-type: data;
   --banner-bg-color: rgba(0, 210, 255, 0.25);
   --bright-green: rgba(0, 128, 53, 0.8);
   --bright-red: rgba(255, 40, 83, 1); 
+  --custom-th-bg: var(--bs-primary);
 
 
   /* Chart Palette - Richer colors for contrast on white */
@@ -69,6 +70,7 @@ $color-mode-type: data;
   --bs-warning: #ff8c00;
   --bs-warning-rgb: 255, 140, 0;
 
+  --custom-th-bg: #00272d;
 
   .btn-primary {
     --bs-btn-bg: var(--bs-primary);
@@ -138,6 +140,10 @@ $color-mode-type: data;
   --chart-color-4: #ffb300; 
   --chart-color-5: #b026ff; 
   --chart-color-6: #00e5ff;
+}
+
+.table thead th {
+  background-color: var(--custom-th-bg) !important;
 }
 
 /* --- 5. CUSTOM UTILITY CLASSES (Available in both themes) --- */
