@@ -53,7 +53,7 @@ const AlertProfileList = () => {
         )}
       </div>
 
-      <Table striped bordered hover responsive variant="dark">
+      <Table striped bordered hover responsive>
         <thead className="table-dark">
           <tr>
             <th>ID</th>

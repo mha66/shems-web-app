@@ -42,14 +42,8 @@ const Home = () => {
   return (
     <Container className="mt-4">
       {/* Welcome Banner */}
-      <div 
-        className="p-4 mb-4 rounded shadow-sm" 
-        style={{ 
-          backgroundColor: 'rgba(0, 210, 255, 0.05)', // A very faint tint of your neon blue
-          borderLeft: '5px solid #00d2ff' // Thick neon accent line
-        }}
-      >
-        <h2 className="mb-1 text-white">
+      <div className="welcome-banner p-4 mb-4 rounded shadow-sm">
+        <h2 className="mb-1 text-body">
           Welcome back, <span className="text-primary fw-bold">{dashboardData.firstName}</span>!
         </h2>
         <p className="mb-0 text-muted">Here is the current status of your smart home.</p>

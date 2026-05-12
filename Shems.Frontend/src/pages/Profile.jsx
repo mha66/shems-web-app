@@ -93,7 +93,7 @@ const Profile = () => {
             <Form.Group className="mb-4">
               <Form.Label className="fw-bold">Target Monthly Budget</Form.Label>
               <div className="input-group">
-                <span className="input-group-text text-black">$</span>
+                <span className="input-group-text">$</span>
                 <Form.Control 
                   type="number" 
                   step="1" // Whole dollars
@@ -121,7 +121,7 @@ const Profile = () => {
                   onChange={(e) => setPreferredTemperature(e.target.value)} 
                   required 
                 />
-                <span className="input-group-text text-black">°C</span>
+                <span className="input-group-text">°C</span>
               </div>
               <Form.Text className="text-muted">
                 Set a baseline temperature between 5°C and 45°C.

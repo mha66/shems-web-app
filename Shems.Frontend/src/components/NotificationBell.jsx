@@ -51,9 +51,8 @@ const NotificationBell = () => {
   return (
     <Dropdown align="end" className="me-3">
       <Dropdown.Toggle 
-        variant="light" 
         id="dropdown-custom-components" 
-        className="position-relative border-0 shadow-sm"
+        className="bg-body-tertiary position-relative border-0 shadow-sm"
         title="Notifications"
         aria-label="Notifications"
       >
@@ -63,7 +62,7 @@ const NotificationBell = () => {
         {alerts.length > 0 && (
           <Badge 
             pill 
-            className="position-absolute bg-dark-red top-0 start-100 translate-middle"
+            className="position-absolute bg-danger top-0 start-100 translate-middle"
             style={{ fontSize: '0.65rem' }}
           >
             {alerts.length}
@@ -71,7 +70,7 @@ const NotificationBell = () => {
         )}
       </Dropdown.Toggle>
 
-      <Dropdown.Menu variant="dark" className="shadow" style={{ minWidth: '300px', maxHeight: '400px', overflowY: 'auto' }}>
+      <Dropdown.Menu className="shadow" style={{ minWidth: '300px', maxHeight: '400px', overflowY: 'auto' }}>
         <Dropdown.Header className="d-flex justify-content-between align-items-center fw-bold border-bottom pb-2 mb-2">
           <span>Notifications</span>
           {alerts.length > 0 && (
@@ -93,7 +92,7 @@ const NotificationBell = () => {
               className="border-bottom py-2 text-wrap"
             >
               <div className="d-flex justify-content-between align-items-start">
-                <strong className="bright-red small">{alert.deviceName}</strong>
+                <strong className="text-danger small">{alert.deviceName}</strong>
                 <span className="text-muted" style={{ fontSize: '0.7rem' }}>
                   {new Date(alert.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                 </span>

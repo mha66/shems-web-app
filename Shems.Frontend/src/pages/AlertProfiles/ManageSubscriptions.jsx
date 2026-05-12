@@ -118,7 +118,7 @@ const ManageSubscriptions = () => {
 
             <Form>
               {alertProfiles.map(profile => (
-                <div key={profile.id} className="mb-2 p-2 border rounded bg-light">
+                <div key={profile.id} className="mb-2 p-2 border rounded">
                   <Form.Check 
                     type="switch"
                     id={`profile-${profile.id}`}

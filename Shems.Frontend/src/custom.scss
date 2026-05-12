@@ -1,58 +1,127 @@
-/* --- 1. YOUR CUSTOM DNA --- */
+/* --- 1. CORE BRAND COLORS (Used in both themes) --- */
 
 // Smart Home Color Palette
-$primary: #00d2ff;   
+$primary: #00c3ef;   
 $success: #007f41;   
-$danger:  #ff1744;   // (If this red is still too dark, try a brighter neon red like #ff5252)
+$danger:  #c90028;
+$warning: #9b5800;   
 $dark:    #121212;   
 $light:   #2d2d2d;   
 
-// Fix #1: Make "text-muted" much lighter so it pops on dark backgrounds
-$text-muted: #adb5bd; 
-
-// Fix #2: Global Table Text and Border Colors
-$table-color: #f8f9fa; // Forces all table text to be light
-$table-border-color: rgba(255, 255, 255, 0.1); // Soft light borders
-$table-bg: transparent; // Keeps the dark background shining through
-$table-striped-color: #f8f9fa;
-$table-striped-bg: rgba(255, 255, 255, 0.02); // Very subtle zebra striping
-$table-hover-color: #f8f9fa;
-$table-hover-bg: rgba(255, 255, 255, 0.05); // Subtle highlight when hovering rows
-
-// Fix #3: Dropdown Menu Dark Theme Integration
-$dropdown-dark-bg: $light; // Matches your sleek card backgrounds
-$dropdown-dark-border-color: rgba(255, 255, 255, 0.05);
-$dropdown-dark-color: #f8f9fa;
-$dropdown-dark-link-color: #f8f9fa;
-$dropdown-dark-link-hover-color: $primary; // Turns neon blue when hovered!
-$dropdown-dark-link-hover-bg: rgba(255, 255, 255, 0.05); // Subtle highlight
-$dropdown-dark-divider-bg: rgba(255, 255, 255, 0.1);
-
 // Global Component Styling
 $border-radius: 1rem; 
-$body-bg: $dark;      
-$body-color: #f8f9fa;
 
-// Override Card defaults to look like sleek dashboard widgets
-$card-bg: $light;
-$card-border-color: rgba(255, 255, 255, 0.05);
-$card-box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+/* --- 2. ENABLE BOOTSTRAP COLOR MODES --- */
+// Tells Bootstrap to watch for the data-bs-theme HTML attribute
+$color-mode-type: data; 
 
-/* --- 2. IMPORT BOOTSTRAP --- */
-// (This must come AFTER your variables so Bootstrap knows to use them)
+/* --- 3. IMPORT BOOTSTRAP --- */
+// Must come after variables, but before the theme overrides below
 @import "bootstrap/scss/bootstrap";
 
-/* --- Custom Utility Classes --- */
+
+/* --- 4. THEME-SPECIFIC OVERRIDES --- */
+
+/* LIGHT MODE (Default) */
+:root, [data-bs-theme="light"] {
+  body {
+    background-color: #f4f7f6; /* Soft light gray background */
+    color: #212529;
+  }
+  
+  .card {
+    border: none;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  }
+  
+  --banner-bg-color: rgba(0, 210, 255, 0.25);
+  --bright-green: rgba(0, 128, 53, 0.8);
+  --bright-red: rgba(255, 40, 83, 1); 
+  /* Note: Tables, Dropdowns, and text-muted will automatically 
+     use Bootstrap's excellent light-mode defaults here! */
+}
+
+/* DARK MODE OVERRIDES */
+[data-bs-theme="dark"] {
+  body {
+    background-color: $dark !important; 
+    color: #f8f9fa;
+  }
+
+  --banner-bg-color: rgba(0, 210, 255, 0.1);
+  --bright-green: rgba(0, 200, 83, 0.8);
+  --bright-red: rgba(255, 90, 123, 1);
+  
+  --bs-danger: #ff4545;
+  --bs-danger-rgb: 255, 69, 69;
+  --bs-warning: #ff8c00;
+  --bs-warning-rgb: 255, 140, 0;
+
+  .btn-outline-danger {
+    --bs-btn-color: var(--bs-danger);
+    --bs-btn-border-color: var(--bs-danger);
+    
+    /* When you hover over it */
+    --bs-btn-hover-bg: var(--bs-danger);
+    --bs-btn-hover-border-color: var(--bs-danger);
+    --bs-btn-hover-color: #121212; /* Dark text on neon red background */
+    
+    /* When you click it */
+    --bs-btn-active-bg: var(--bs-danger);
+    --bs-btn-active-border-color: var(--bs-danger);
+    --bs-btn-active-color: #121212;
+  }
+
+  /* Fix #1: Make "text-muted" much lighter */
+  .text-muted {
+    color: #adb5bd !important; 
+  }
+
+  /* Override Card defaults to look like sleek dashboard widgets */
+  .card {
+    --bs-card-bg: #{$light};
+    --bs-card-border-color: rgba(255, 255, 255, 0.05);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5) !important;
+  }
+
+  /* Fix #2: Global Table Text and Border Colors */
+  .table {
+    --bs-table-bg: transparent;
+    --bs-table-color: #f8f9fa;
+    --bs-table-border-color: rgba(255, 255, 255, 0.1);
+    --bs-table-striped-color: #f8f9fa;
+    --bs-table-striped-bg: rgba(255, 255, 255, 0.02);
+    --bs-table-hover-color: #f8f9fa;
+    --bs-table-hover-bg: rgba(255, 255, 255, 0.05);
+  }
+
+  /* Fix #3: Dropdown Menu Dark Theme Integration */
+  .dropdown-menu {
+    --bs-dropdown-bg: #{$light};
+    --bs-dropdown-border-color: rgba(255, 255, 255, 0.05);
+    --bs-dropdown-color: #f8f9fa;
+    --bs-dropdown-link-color: #f8f9fa;
+    --bs-dropdown-link-hover-color: #{$primary}; 
+    --bs-dropdown-link-hover-bg: rgba(255, 255, 255, 0.05);
+    --bs-dropdown-divider-bg: rgba(255, 255, 255, 0.1);
+  }
+}
+
+/* --- 5. CUSTOM UTILITY CLASSES (Available in both themes) --- */
+.welcome-banner {
+  background-color: var(--banner-bg-color);
+  border-left: 5px solid $primary;
+}
 
 .bg-dark-red {
   background-color: #b30021 !important; /* Deeper, darker red */
   color: #ffffff !important; /* Ensure text stays crisp white */
 }
 
-.bright-red{
-    color: #ff5a7b !important; 
+.bright-red {
+  color: var(--bright-red) !important; 
 }
 
-.bright-green{
-    color: #00c853 !important; /* Vibrant neon green */
+.bright-green {
+  color: var(--bright-green) !important; /* Vibrant neon green */
 }

@@ -53,7 +53,7 @@ const DeviceList = () => {
         )}
       </div>
 
-      <Table striped bordered hover responsive variant="dark">
+      <Table striped bordered hover responsive>
         <thead className="table-dark">
           <tr>
             <th>ID</th>
@@ -90,7 +90,7 @@ const DeviceList = () => {
                 {/* Shows a red badge if there are alerts, or 'None' if empty */}
                 <td>
                   {device.activeAlerts && device.activeAlerts.length > 0 ? (
-                    <span className="badge bg-dark-red">
+                    <span className="badge bg-danger">
                       {device.activeAlerts.length} Alert(s)
                     </span>
                   ) : (
