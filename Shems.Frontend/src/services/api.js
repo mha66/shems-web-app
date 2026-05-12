@@ -14,8 +14,8 @@ api.interceptors.response.use(
     // Grab the original request that just failed
     const originalRequest = error.config;
 
-    // Check if the error is a 401 (Unauthorized) AND refresh hasn't already been attempted for this request
-    if (error.response && error.response.status === 401 && !originalRequest._retry && 
+    // Check if the error is a 401 (Unauthorized) or 440 (Session Timeout) AND refresh hasn't already been attempted for this request
+    if (error.response && (error.response.status === 401 || error.response.status === 440) && !originalRequest._retry && 
       !originalRequest.url.includes('/login') && !originalRequest.url.includes('/register')) {
       
       // Mark this request as "retrying" to prevent infinite loops if the refresh also fails
