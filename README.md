@@ -19,6 +19,8 @@ This project utilizes a modern, enterprise-level architecture separated into two
 * **React Router DOM:** Handles client-side routing, protected routes, and role-based navigation guards.
 * **Axios & Interceptors:** Manages all HTTP requests and automatically handles silent token refreshes via interceptors.
 * **React-Bootstrap:** Provides a responsive, mobile-friendly, and accessible component library for the user interface.
+* **SASS / SCSS:** Utilized as the CSS preprocessor to override Bootstrap's core variables, generate custom utility classes, and engineer the dynamic Light/Dark mode theme engine.
+* **Recharts:** Powers the dynamic, interactive data visualizations and charts on the dashboard.
 
 ---
 
@@ -30,6 +32,16 @@ This application utilizes a highly secure, dual-cookie authentication flow rathe
 2. **Refresh Token Rotation (7 Days):** A secondary, cryptographically secure refresh token maintains a "sliding session." When the 15-minute JWT expires, the frontend's **Axios Interceptor** silently calls the `/refresh` endpoint to generate fresh tokens without interrupting the user's experience. 
 3. **Mitigation of XSS & CSRF:** Both tokens are sent to the client as `HttpOnly`, `SameSite=Strict`, and `Secure=true` cookies. This flag absolutely forbids any client-side JavaScript from reading the tokens, neutralizing XSS and CSRF data-theft vectors.
 4. **Role-Based UI:** The React frontend utilizes `<ProtectedRoute>` and `<AdminRoute>` guards to hide administrative UI elements and block unauthorized URL access at the client level, backed by strict server-side validation.
+
+---
+
+## 🎨 Advanced UI & UX Features
+
+The frontend is highly polished to mimic a premium smart home interface, prioritizing both aesthetics and user experience:
+
+* **Dynamic Light/Dark Theme Engine:** A fully integrated theme toggle utilizing Bootstrap 5.3's `data-bs-theme` attribute and CSS Variables. The application seamlessly transitions between a clean light mode and a sleek, neon-accented OLED dark mode, persisting user preferences via `localStorage`.
+* **Interactive Power Distribution Visualization:** A real-time Recharts Donut chart on the dashboard dynamically maps API zone data to show users exactly where their power is going. The chart automatically swaps its color palette to maintain perfect contrast in both light and dark modes.
+* **Quick Action Control Center:** A "remote control" dashboard widget utilizing frosted-glass UI elements and custom neon toggle switches. It employs **Optimistic UI Updates** to instantly change device states visually before the API call resolves, guaranteeing a lightning-fast, highly responsive feel.
 
 ---
 
@@ -106,16 +118,19 @@ The API features an automated worker service scheduled via **Hangfire**, paired 
 
 ### 1. Login & Registeration
 Demonstrates the login and registeration pages.
-<img width="2552" height="1399" alt="Login" src="https://github.com/user-attachments/assets/f101b192-e105-447f-8f7c-dc55e6afb3dd" /> </br>
-<img width="2557" height="1391" alt="Registerarion" src="https://github.com/user-attachments/assets/70cfc132-faee-4662-a13f-9c2978d85ab6" />
+<img width="2557" height="1387" alt="Login" src="https://github.com/user-attachments/assets/2f784200-10ae-4a14-8416-4f561c3f757c" />
+</br>
+<img width="2557" height="1383" alt="Registeration" src="https://github.com/user-attachments/assets/07700492-6b27-4c66-b09c-c77125a2cfe5" />
 
-### 2. User Experience & Dashboard
-Demonstrates the personalized resident dashboard summarizing power draw, active devices, and budget data.
-<img width="2559" height="1396" alt="Home" src="https://github.com/user-attachments/assets/7ac690fa-659a-4447-b2ad-21dff11c6d9c" />
+### 2. User Experience & Dashboard (Dark/Light Themes)
+Demonstrates the personalized resident dashboard summarizing power draw, active devices, and budget data in both dark and light themes.
+<img width="2557" height="1402" alt="Home Dark" src="https://github.com/user-attachments/assets/c35dc3bd-2d12-4d34-ae0b-da338de8a58d" />
+</br>
+<img width="2557" height="1398" alt="Home Light" src="https://github.com/user-attachments/assets/2a37afb9-1ae5-45a9-8314-6671c420be08" />
 
 ### 3. Device & Zone Management
 Demonstrates the data tables highlighting active devices, power consumption metrics, and administrative action buttons.
-<img width="2559" height="1397" alt="Device List" src="https://github.com/user-attachments/assets/81f36fa9-7a8e-4e6d-beda-606fcc562e52" />
+<img width="2557" height="1390" alt="Device List" src="https://github.com/user-attachments/assets/5452762b-ced5-4df8-bd60-21209a9b0016" />
 
 ### 4. Secure Dual-Cookie Authentication
 Demonstrates the network tab showing the short-lived JWT and long-lived Refresh Token cookies being securely set as `HttpOnly`.
@@ -138,10 +153,10 @@ Demonstrates the Hangfire dashboard successfully executing the power-monitoring 
 
 ### 8. Admin Subscription Management
 Demonstrates the administrative UI where system admins can select specific users and assign personalized monitoring rules via checkboxes.
-<img width="2559" height="1397" alt="image" src="https://github.com/user-attachments/assets/e154be8d-b199-4daf-98bb-a365889a7460" />
-
+<img width="2557" height="1390" alt="Subscription" src="https://github.com/user-attachments/assets/45c6e360-0913-4b24-bcdb-98f316043ea8" />
 
 ### 9. Real-Time Notification Bell
 Demonstrates the user-facing navigation bar with the dynamic notification bell, showing unread alert badges and the dropdown UI.
-<img width="2558" height="1398" alt="image" src="https://github.com/user-attachments/assets/9fe595d3-a3cd-4e8a-8909-733d3d0d0dc9" />
+<img width="2557" height="1396" alt="Notifications" src="https://github.com/user-attachments/assets/63b7a996-95b6-4540-aa8b-f8e3abf8aa41" />
+
 
