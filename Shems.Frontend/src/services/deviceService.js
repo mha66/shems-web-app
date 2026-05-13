@@ -7,7 +7,8 @@ const deviceService = {
   
   updateDeviceStatus: (id, data) => api.put(`/device/${id}/status`, data),
   deleteDevice: (id) => api.delete(`/device/${id}`),
-  assignAlertProfile: (deviceId, alertProfileId) => api.post(`/device/${deviceId}/alerts/${alertProfileId}`)
+  assignAlertProfile: (deviceId, alertProfileId) => api.post(`/device/${deviceId}/alerts/${alertProfileId}`),
+  removeAlertProfile: (deviceId, alertProfileId) => api.delete(`/device/${deviceId}/alerts/${alertProfileId}`)
 };
 
 export default deviceService;

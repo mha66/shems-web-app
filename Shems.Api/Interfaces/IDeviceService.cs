@@ -10,4 +10,5 @@ public interface IDeviceService
     Task<bool> UpdateDeviceStatusAsync(int id, UpdateDeviceStatusDto updateDto);
     Task<bool> DeleteDeviceAsync(int id);
     Task<bool> AssignAlertProfileAsync(int deviceId, int alertProfileId);
+    Task<bool> RemoveAlertProfileAsync(int deviceId, int alertProfileId);
 }

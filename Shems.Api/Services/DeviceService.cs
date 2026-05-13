@@ -119,4 +119,22 @@ public class DeviceService : IDeviceService
         await _context.SaveChangesAsync();
         return true;
     }
+
+    public async Task<bool> RemoveAlertProfileAsync(int deviceId, int alertProfileId)
+    {
+        var device = await _context.Devices
+            .Include(d => d.AlertProfiles)
+            .FirstOrDefaultAsync(d => d.Id == deviceId);
+
+        if (device == null) 
+            return false;
+
+        var alertProfile = device.AlertProfiles.FirstOrDefault(ap => ap.Id == alertProfileId);
+        if (alertProfile == null) 
+            return false;
+
+        device.AlertProfiles.Remove(alertProfile);
+        await _context.SaveChangesAsync();
+        return true;
+    }
 }

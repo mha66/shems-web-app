@@ -86,4 +86,17 @@ public class DeviceController : ControllerBase
 
         return Ok("Alert profile successfully assigned to the device.");
     }
+
+    // DELETE: api/device/5/alerts/2
+    [HttpDelete("{deviceId}/alerts/{alertProfileId}")]
+    [Authorize(Roles = "Admin")]
+    public async Task<IActionResult> RemoveAlertProfile(int deviceId, int alertProfileId)
+    {
+        var success = await deviceService.RemoveAlertProfileAsync(deviceId, alertProfileId);
+
+        if (!success)
+            return BadRequest("Failed to remove alert profile. Ensure both IDs exist and are linked.");
+
+        return Ok("Alert profile successfully removed from the device.");
+    }
 }

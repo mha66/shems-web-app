@@ -91,6 +91,24 @@ const EditDevice = () => {
     }
   };
 
+  const handleRemoveAlert = async () => {
+    if (!selectedAlertId) return;
+    
+    setAssignMessage({ type: '', text: '' });
+
+    try {
+      await deviceService.removeAlertProfile(id, selectedAlertId);
+      setAssignMessage({ type: 'success', text: 'Alert profile successfully unassigned!' });
+      setSelectedAlertId(''); // Reset the dropdown
+    } catch (err) {
+      console.error(err);
+      setAssignMessage({ 
+        type: 'danger', 
+        text: err.response?.data?.message || err.response?.data || 'Failed to remove profile. It might not be linked.' 
+      });
+    }
+  };
+
   if (loading) return <Container className="mt-5 text-center"><Spinner animation="border" /></Container>;
 
   return (
@@ -175,6 +193,14 @@ const EditDevice = () => {
             disabled={!selectedAlertId} // Disables button if nothing is selected
           >
             Assign
+          </Button>
+
+          <Button 
+            variant="danger" 
+            onClick={handleRemoveAlert}
+            disabled={!selectedAlertId} // Disables button if nothing is selected
+          >
+            Unassign
           </Button>
         </div>
       </Card.Body>
