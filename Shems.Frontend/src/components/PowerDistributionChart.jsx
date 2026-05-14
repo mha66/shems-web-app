@@ -92,7 +92,7 @@ const PowerDistributionChart = ({refreshPage, refreshPageState}) => {
 
           {/* 4. Success State */}
           {!isLoading && !error && chartData.length > 0 && (
-            <ResponsiveContainer width="100%" height="100%">
+            <ResponsiveContainer width="100%" height={300}>
               <PieChart>
                 <Pie
                   data={chartData}

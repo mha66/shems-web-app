@@ -60,7 +60,7 @@ const NavigationBar = ({ setIsAuthenticated }) => {
             {/* Show an Admin Badge so the user knows their current privileges */}
             {userRole === 'Admin' && (
               <>
-                <Badge className="bg-danger me-3">Admin Mode</Badge>
+                <Badge className="bg-danger body-inverted me-3">Admin Mode</Badge>
                 <Nav.Link as={Link} to="/alerts/subscriptions" className="me-3 text-warning">
                   <i className="bi bi-envelope-paper me-1"></i> Subscriptions
                 </Nav.Link>

@@ -108,7 +108,7 @@ const ManageSubscriptions = () => {
       {/* Only show the checkboxes if a user is actually selected */}
       {selectedResidentId && (
         <Card className="shadow-sm border-primary">
-          <Card.Header className="bg-primary text-white fw-bold">
+          <Card.Header className="bg-primary text-black fw-bold">
             Assigned Alert Rules
           </Card.Header>
           <Card.Body>

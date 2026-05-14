@@ -90,7 +90,7 @@ const DeviceList = () => {
                 {/* Shows a red badge if there are alerts, or 'None' if empty */}
                 <td>
                   {device.activeAlerts && device.activeAlerts.length > 0 ? (
-                    <span className="badge bg-danger">
+                    <span className="badge bg-danger body-inverted">
                       {device.activeAlerts.length} Alert(s)
                     </span>
                   ) : (

@@ -38,7 +38,7 @@ $color-mode-type: data;
   --bright-green: rgba(0, 128, 53, 0.8);
   --bright-red: rgba(255, 40, 83, 1); 
   --custom-th-bg: var(--bs-primary);
-
+  --body-inverted: #ffffff;
 
   /* Chart Palette - Richer colors for contrast on white */
   --chart-color-1: #008eb3; /* Deep Cyan */
@@ -65,12 +65,13 @@ $color-mode-type: data;
   
   --bs-primary: #12d4ff;
   --bs-primary-rgb: 18, 212, 255;
-  --bs-danger: #ff4545;
-  --bs-danger-rgb: 255, 69, 69;
+  --bs-danger: #ff6e6e;
+  --bs-danger-rgb: 255, 110, 110;
   --bs-warning: #ff8c00;
   --bs-warning-rgb: 255, 140, 0;
 
   --custom-th-bg: #00272d;
+  --body-inverted: #121212;
 
   .btn-primary {
     --bs-btn-bg: var(--bs-primary);
@@ -97,6 +98,21 @@ $color-mode-type: data;
     --bs-btn-border-color: var(--bs-danger);
     --bs-btn-hover-bg: #ff7a7a; /* Slightly lighter neon red on hover */
     --bs-btn-hover-border-color: #ff7a7a;
+  }
+
+  .btn-outline-warning {
+    --bs-btn-color: var(--bs-warning);
+    --bs-btn-border-color: var(--bs-warning);
+    
+    /* Hover state */
+    --bs-btn-hover-bg: var(--bs-warning);
+    --bs-btn-hover-border-color: var(--bs-warning);
+    --bs-btn-hover-color: #121212; /* Dark text on neon amber background */
+    
+    /* Active state */
+    --bs-btn-active-bg: var(--bs-warning);
+    --bs-btn-active-border-color: var(--bs-warning);
+    --bs-btn-active-color: #121212;
   }
 
   /* Fix #1: Make "text-muted" much lighter */
@@ -136,7 +152,7 @@ $color-mode-type: data;
   /* Chart Palette - Neons */
   --chart-color-1: #00d2ff; 
   --chart-color-2: #00c853; 
-  --chart-color-3: #ff5252; 
+  --chart-color-3: #ff6e6e; 
   --chart-color-4: #ffb300; 
   --chart-color-5: #b026ff; 
   --chart-color-6: #00e5ff;
@@ -163,6 +179,10 @@ $color-mode-type: data;
 
 .bright-green {
   color: var(--bright-green) !important; /* Vibrant neon green */
+}
+
+.body-inverted {
+  color: var(--body-inverted) !important;
 }
 
 /* --- Quick Action Card Styles --- */
